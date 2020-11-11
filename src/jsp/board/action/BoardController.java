@@ -26,7 +26,6 @@ public class BoardController extends HttpServlet {
         int cmdIdx = requestURI.lastIndexOf("/")+1;
         String command = requestURI.substring(cmdIdx);
 
-
         ActionForward forward = null;
         Action action = null;
 

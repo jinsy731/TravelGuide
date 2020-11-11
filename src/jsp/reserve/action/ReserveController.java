@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "*.rsrv")
+
 public class ReserveController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -39,7 +39,7 @@ public class ReserveController extends HttpServlet {
             {
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setNextPath("reserveform.jsp");
+                forward.setNextPath("/reserve/reserveform.jsp");
             }
 
             else if(command.equals("BoardShowContentAction.board")) // 로그인 처리

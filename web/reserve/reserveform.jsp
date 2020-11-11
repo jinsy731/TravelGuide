@@ -22,6 +22,31 @@
         <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->
         <link href="css/styles.css" rel="stylesheet" />
 
+        <!-- Bootstrap-DatePicker(TempusDominus) 다음 순서대로 넣어야 적용됨-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous"></script>        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js" integrity="sha512-X7kCKQJMwapt5FCOl2+ilyuHJp+6ISxFTVrx+nkrhgplZozodT9taV2GuGHxBgKKpOJZ4je77OuPooJg9FJLvw==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                $('#datetimepicker7').datetimepicker( {
+                    format : 'YYYY년 MM월 DD일 HH:mm'
+                });
+                $('#datetimepicker8').datetimepicker({
+                    format : 'YYYY년 MM월 DD일 HH:mm',
+                    useCurrent: false
+                });
+                $("#datetimepicker7").on("change.datetimepicker", function (e) {
+                    $('#datetimepicker8').datetimepicker('minDate', e.date);
+                });
+                $("#datetimepicker8").on("change.datetimepicker", function (e) {
+                    $('#datetimepicker7').datetimepicker('maxDate', e.date);
+                });
+            });
+
+        </script>
 
     </head>
 <body>
@@ -102,8 +127,65 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> <!-- login modal end -->
     <!-- nav part end -->
+
+    <section class="page-section" style="margin-top: 100px">
+        <div class="container">
+
+            <div class="row">
+                <!-- Calendar -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="datetimepicker7">출발일</label>
+                        <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7"/>
+                            <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="datetimepicker8">도착일</label>
+                        <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8"/>
+                            <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <label for="destList">목적지</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="courseList">코스 목록</label>
+                    <div id="courseList">
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
 </body>
 </html>
