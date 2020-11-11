@@ -39,12 +39,6 @@ public class BoardController extends HttpServlet {
                 forward.setRedirect(false);
                 forward.setNextPath("index.jsp");
             }
-            else if(command.equals("main.do")) // 메인화면 이동
-            {
-                forward = new ActionForward();
-                forward.setRedirect(false);
-                forward.setNextPath("main.jsp");
-            }
             else if(command.equals("BoardList.board")) // 메인화면 이동
             {
                 forward = new ActionForward();
