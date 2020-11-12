@@ -102,6 +102,10 @@
 
                 }); // Reserve Submit Event Handler END
 
+                $('#reserveList').click(function () {
+                    location.href = "ReserveShowListAction.rsrv";
+                }); // ReserveList
+
             });
         </script>
 
@@ -166,6 +170,7 @@
             </div>
 
             <button type="button" class="btn btn-primary" id="reserveSubmit">Submit</button>
+            <button type="button" class="btn btn-primary" id="reserveList">Submit</button>
 
         </div>
     </section>

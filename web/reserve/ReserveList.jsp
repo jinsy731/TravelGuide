@@ -1,3 +1,6 @@
+<%@ page import="jsp.reserve.model.ReserveDAO" %>
+<%@ page import="jsp.reserve.model.ReserveBean" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,14 +35,18 @@
                     </thead>
                     <tbody>
                     <%
-                        ArrayList<BoardBean> list = (ArrayList<BoardBean>)session.getAttribute("boardlist");
-                        for(BoardBean bean : list) {
-                            out.print("<tr class=\"table_item\">");
-                            out.print("<td data-field=\"num\" data-formatter=\"LinkFormatter\">"+bean.getBoard_num()+"</td>");
-                            out.print("<td>"+bean.getBoard_subject()+"</td>");
-                            out.print("<td>"+bean.getBoard_owner_id()+"</td>");
-                            out.print("<td>"+bean.getBoard_date()+"</td>");
-                            out.print("</tr>");
+                        ArrayList<ReserveBean> list = (ArrayList<ReserveBean>)session.getAttribute("reserve_list");
+
+                        if(list != null) {
+                            for(ReserveBean bean : list) {
+                                out.print("<tr class=\"table_item\">");
+                                out.print("<td data-field=\"num\" data-formatter=\"LinkFormatter\">"+bean.getReserve_num()+"</td>");
+                                out.print("<td>"+bean.getReserve_date_start()+"</td>");
+                                out.print("<td>"+bean.getReserve_date_end()+"</td>");
+                                out.print("<td>"+bean.getDestination()+"</td>");
+                                out.print("<td>"+bean.getReserve_course_item()+"</td>");
+                                out.print("</tr>");
+                            }
                         }
 
                     %>

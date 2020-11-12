@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class ReserveBean {
     int reserve_num;
     String user_id;
+    String destination;
     String reserve_date_start, reserve_date_end;
     String reserve_state;
+    String reserve_course_item;
     ArrayList<String> reserve_course = new ArrayList<String>();
 
     public void setReserve_course(ArrayList<String> reserve_course) {
@@ -27,6 +29,18 @@ public class ReserveBean {
         this.reserve_state = reserve_state;
     }
 
+    public void setReserve_num(int reserve_num) {
+        this.reserve_num = reserve_num;
+    }
+
+    public void setReserve_course_item(String reserve_course_item) {
+        this.reserve_course_item = reserve_course_item;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
@@ -37,6 +51,18 @@ public class ReserveBean {
 
     public String getReserve_date_start() {
         return reserve_date_start;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public int getReserve_num() {
+        return reserve_num;
+    }
+
+    public String getReserve_course_item() {
+        return reserve_course_item;
     }
 
     public ArrayList<String> getReserve_course() {
