@@ -17,7 +17,7 @@ $(document).ready( function () {
             dataType : "text",
             success: function (data) {
                 if(data.trim() == 'success') {
-                    location.href = 'index.do';
+                    location.reload();
                 }
                 else if(data.trim() == 'wrong_id') {
                     alert("존재하지 않는 아이디입니다.");

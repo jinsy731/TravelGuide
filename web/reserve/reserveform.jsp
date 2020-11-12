@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <html>
     <head>
@@ -31,6 +31,7 @@
         <script type="text/javascript">
 
             $(function () {
+
                 $('#datetimepicker7').datetimepicker( {
                     format : 'YYYY년 MM월 DD일 HH:mm'
                 });
@@ -44,6 +45,68 @@
                 $("#datetimepicker8").on("change.datetimepicker", function (e) {
                     $('#datetimepicker7').datetimepicker('maxDate', e.date);
                 });
+
+
+                $('.dropdown-item').click( function() {
+                    var item = { dest : $(this).text() };
+                    $('#destList').text($(this).text());
+                    $.ajax( {
+                        url : "ReserveGetCourseListAction.rsrv",
+                        async : true,
+                        type : "GET",
+                        data : item,
+                        dataType : "json",
+
+                        success : function(data) {
+                            $('#courseList').empty();
+                            for(var i in data) {
+                                var $item = $('<div class="form-check">\n' +
+                                    '  <input class="form-check-input" name="box" type="checkbox" value="" id="' + data[i] + 'Check">\n' +
+                                    '  <label class="form-check-label" for="' + data[i] + 'Check">\n' +
+                                        data[i] +
+                                    '  </label>\n' +
+                                    '</div>');
+                                $('#courseList').append($item);
+                            }
+
+                        }
+                    })
+                }) // Dropdown Item Event Listener End
+
+
+
+                $('#reserveSubmit').click( function() {
+                    var list = [];
+                    $('input[name=box]:checked').each(function() {
+                        list.push( $(this).siblings(':eq(0)').text().trim());
+                    })
+                    var submitData = {
+                        startDate : $('#startDate').val(),
+                        endDate : $('#endDate').val(),
+                        destination : $('#destList').text(),
+                        course : list
+                    }
+
+                    alert(submitData.startDate);
+
+                    $.ajax( {
+                        url : "ReserveSubmitAction.rsrv",
+                        data : submitData,
+                        traditional : true,
+                        async : true,
+                        dataType : "text",
+
+                        success : function(data) {
+                            if(data.trim() == "success")
+                                alert("등록 완료");
+                            else
+                                alert("등록 실패");
+                        }
+                    });
+
+                }) // Reserve Submit Event Handler END
+
+
             });
 
         </script>
@@ -139,7 +202,7 @@
                     <div class="form-group">
                         <label for="datetimepicker7">출발일</label>
                         <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7" id="startDate"/>
                             <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
@@ -148,7 +211,7 @@
                     <div class="form-group">
                         <label for="datetimepicker8">도착일</label>
                         <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8" id="endDate"/>
                             <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
@@ -158,7 +221,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" style="height: 300px">
 
                 <div class="col-md-2">
                     <label for="destList">목적지</label>
@@ -166,8 +229,8 @@
                         <div class="input-group-prepend">
                             <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">destA</a>
+                                <a class="dropdown-item" href="#">destB</a>
                             </div>
                         </div>
                     </div>
@@ -175,13 +238,15 @@
 
                 <div class="col-md-6">
                     <label for="courseList">코스 목록</label>
-                    <div id="courseList">
-
-
-
-                    </div>
+                        <div id="courseList">
+                            <!-- checkbox list added by js -->
+                        </div>
                 </div>
             </div>
+
+            <button type="button" class="btn btn-primary" id="reserveSubmit">Submit</button>
+
+
 
         </div>
     </section>

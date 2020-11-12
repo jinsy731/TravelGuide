@@ -41,10 +41,29 @@ public class ReserveController extends HttpServlet {
                 forward.setRedirect(false);
                 forward.setNextPath("/reserve/reserveform.jsp");
             }
-
-            else if(command.equals("BoardShowContentAction.board")) // 로그인 처리
+            else if(command.equals("CourseListControl.rsrv")) // 메인화면 이동
             {
-                action = new BoardShowContentAction();
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("/reserve/CourseListControl.jsp");
+            }
+
+            else if(command.equals("ReserveSubmitControl.rsrv")) // 메인화면 이동
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("/reserve/ReserveSubmitControl.jsp");
+            }
+
+            else if(command.equals("ReserveGetCourseListAction.rsrv")) // 로그인 처리
+            {
+                action = new ReserveGetCourseListAction();
+                forward = action.execute(request, response);
+            }
+
+            else if(command.equals("ReserveSubmitAction.rsrv")) // 로그인 처리
+            {
+                action = new ReserveSubmitAction();
                 forward = action.execute(request, response);
             }
 
