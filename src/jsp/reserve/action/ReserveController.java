@@ -35,11 +35,11 @@ public class ReserveController extends HttpServlet {
 
         try {
             // 화면전환
-            if(command.equals("reserveform.rsrv")) // 메인화면 이동
+            if(command.equals("ReserveForm.rsrv")) // 메인화면 이동
             {
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setNextPath("/reserve/reserveform.jsp");
+                forward.setNextPath("/reserve/ReserveForm.jsp");
             }
             else if(command.equals("CourseListControl.rsrv")) // 메인화면 이동
             {

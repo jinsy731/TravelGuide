@@ -29,7 +29,7 @@ public class ReserveDAO {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "select * from reserve where user_id = ?";
+        String sql = "select * from reserve  where user_id = ?";
         ArrayList<ReserveBean> list = new ArrayList<ReserveBean>();
 
         try {

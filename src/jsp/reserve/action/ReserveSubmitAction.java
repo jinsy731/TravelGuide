@@ -34,7 +34,7 @@ public class ReserveSubmitAction implements Action {
         bean.setUser_id((String)request.getSession().getAttribute("sessionID"));
         bean.setReserve_date_start(sdate);
         bean.setReserve_date_end(edate);
-        bean.setReserve_state("접수 중");
+        bean.setReserve_state("접수중");
 
 
         for(String str : request.getParameterValues("course")) {

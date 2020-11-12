@@ -1,4 +1,4 @@
-$(document).ready( function () {
+$(function () {
 
     // LoginSubmit Event Handler
     $("#loginSubmit").on("click", function (event) {

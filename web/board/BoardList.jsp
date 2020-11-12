@@ -24,10 +24,30 @@
     <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->
     <link href="css/styles.css" rel="stylesheet" />
 
+    <script>
+        $(document).ready(function (){
+            $('.table_item').click( function () {
+                var num = $(this).children().eq(0).text();
+                location.href = "BoardShowContentAction.board?board_num="+num;
+            })
+            <c:if test="${sessionScope.sessionID != null}" var="loginCheck"></c:if>
+            $('#btn_write').click( function () {
+                var check = '<c:out value="${loginCheck}"/>';
+                if( check == 'false') {
+                    alert("로그인 후 이용 가능합니다.");
+                    return false;
+                }
+                else {
+                    location.href = "BoardWrite.board";
+                }
+            });
+        })
+    </script>
+
 </head>
 <body>
 
-    <!-- navbar include -->
+    <!-- navbar section -->
     <jsp:include page="/navbar.jsp"/>
 
     <!-- 게시판 -->
@@ -91,73 +111,11 @@
                     <button class="btn btn-primary pull-right " id="btn_write">글쓰기</button>
 
                 </div>
-
         </div>
-
     </section>
 
-        <script>
-
-            $(document).ready( function () {
-                $('.table_item').click( function () {
-                    var num = $(this).children().eq(0).text();
-                    location.href = "BoardShowContentAction.board?board_num="+num;
-                })
-
-
-                <c:if test="${sessionScope.sessionID != null}" var="loginCheck"></c:if>
-
-                $('#btn_write').click( function () {
-                    var check = '<c:out value="${loginCheck}"/>';
-                    if( check == 'false') {
-                        alert("로그인 후 이용 가능합니다.");
-                        return false;
-                    }
-                    else {
-                        location.href = "BoardWrite.board";
-                    }
-                });
-
-                // LoginSubmit Event Handler
-                $("#loginSubmit").on("click", function (event) {
-                    event.preventDefault();
-
-                    if($("#id").val() == '' || $("#pw").val() == '') { alert("아이디와 비밀번호를 입력해주세요."); return false;}
-                    var form_data = {
-                        id: $("#id").val(),
-                        pw: $("#pw").val()
-                    };
-
-                    $.ajax({
-                        url: "MemberLoginAction.do",
-                        type: "POST",
-                        data: form_data,
-                        dataType : "text",
-                        success: function (data) {
-                            if(data.trim() == 'success') {
-                                location.href = "BoardListAction.board";
-                            }
-                            if(data.trim() == 'wrong_id') {
-                                alert("존재하지 않는 아이디입니다.");
-                            }
-                            else if(data.trim() == 'wrong_pw') {
-                                alert("비밀번호가 다릅니다.");
-                            }
-                        },
-                        error: function () {
-                            alert("error");
-                        }
-                    });
-                });  // loginSubmit Event Handler end
-
-                $('#joinSubmit').click( function() {
-                    location.href = "JoinForm.do";
-                });
-
-
-            })
-
-        </script>
+    <!-- footer section -->
+    <jsp:include page="/footer.jsp"/>
 
     </body>
 
