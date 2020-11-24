@@ -38,12 +38,6 @@ public class MemberController extends javax.servlet.http.HttpServlet {
                 forward.setRedirect(false);
                 forward.setNextPath("index.jsp");
             }
-            else if(command.equals("LoginForm.do"))    // 로그인화면 이동
-            {
-                forward=new ActionForward();
-                forward.setRedirect(false);
-                forward.setNextPath("member/login.jsp");
-            }
             else if(command.equals("LoginControl.do"))    // 로그인 컨트롤 jsp
             {
                 forward=new ActionForward();

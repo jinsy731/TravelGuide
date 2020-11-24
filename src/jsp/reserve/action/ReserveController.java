@@ -1,12 +1,10 @@
 package jsp.reserve.action;
 
-import jsp.board.action.BoardShowContentAction;
 import jsp.util.Action;
 import jsp.util.ActionForward;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +60,13 @@ public class ReserveController extends HttpServlet {
                 forward.setNextPath("/reserve/ReserveSubmitControl.jsp");
             }
 
+            else if(command.equals("getTravelDestControl.rsrv")) // 메인화면 이동
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("/reserve/getTravelDestControl.jsp");
+            }
+
 
             else if(command.equals("ReserveGetCourseListAction.rsrv")) // 로그인 처리
             {
@@ -69,9 +74,21 @@ public class ReserveController extends HttpServlet {
                 forward = action.execute(request, response);
             }
 
+            else if(command.equals("APIParsingAction.rsrv")) // 로그인 처리
+            {
+                action = new APIParsingAction();
+                forward = action.execute(request, response);
+            }
+
             else if(command.equals("ReserveShowListAction.rsrv")) // 로그인 처리
             {
                 action = new ReserveShowListAction();
+                forward = action.execute(request, response);
+            }
+
+            else if(command.equals("ReserveGetTravelDestAction.rsrv")) // 로그인 처리
+            {
+                action = new ReserveGetTravelDestAction();
                 forward = action.execute(request, response);
             }
 

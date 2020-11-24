@@ -57,10 +57,22 @@ public class BoardController extends HttpServlet {
                 forward.setNextPath("board/BoardContent.jsp");
             }
 
+            else if(command.equals("CommentSubmitControl.board")) // 메인화면 이동
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("board/CommentSubmitControl.jsp");
+            }
+
             // 각종 처리 액션
             else if(command.equals("BoardListAction.board")) // 로그인 처리
             {
                 action = new BoardListAction();
+                forward = action.execute(request, response);
+            }
+            else if(command.equals("BoardWriteCommentAction.board")) // 로그인 처리
+            {
+                action = new BoardWriteCommentAction();
                 forward = action.execute(request, response);
             }
             else if(command.equals("BoardWriteAction.board")) // 로그인 처리

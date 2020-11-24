@@ -1,11 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Travel Guide :: Reservation</title>
 
         <jsp:include page="/source.jsp" />
+
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 100%;
+            }
+        </style>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCijcJxKaBv72OlNvM6yYO10UP47Ago11Y&callback=initMap&libraries=places&v=weekly&region=kr" defer
+        ></script>
+        <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+
 
         <!-- Bootstrap-DatePicker(TempusDominus) 다른 소스들 보다 나중에 링크되어야 작동-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
@@ -106,7 +121,138 @@
                     location.href = "ReserveShowListAction.rsrv";
                 }); // ReserveList
 
+                $('#ajaxload').click( function() {
+                    $.ajax({
+                        url : "ReserveGetTravelDestAction.rsrv",
+                        type : "get",
+                        contentType : "application/json; charset=utf-8",
+                        async : true,
+
+                        success : function(data) {
+                            const markers = [];
+                            for(var i in data) {
+                                if(i%2 == 0) continue;
+                                const icons = {
+                                    custom: {
+                                        url: "http://localhost:8080/TravelGuide/assets/img/custom_marker.png",
+                                        scaledSize : new google.maps.Size(data[i].tdName.length*15,40),
+                                        origin : new google.maps.Point(0,0),
+                                        anchor : new google.maps.Point(0,0)
+                                    }
+                                };
+                                const marker = new google.maps.Marker({
+                                    map,
+                                    position : new google.maps.LatLng(data[i].tdLatitude, data[i].tdLongitude),
+                                    icon : icons.custom,
+                                    label : {
+                                        text : data[i].tdName,
+                                        fontSize : "8px"
+                                    }
+                                });
+                                markers[i] = marker;
+                                marker.addListener("click", () => {
+                                    map.setZoom(15);
+                                    map.setCenter(marker.getPosition());
+                                })
+                            }
+
+                            new MarkerClusterer(map, markers, {
+                                imagePath:
+                                    "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                            });
+                        },
+                        complete : function() {
+                            console.log("complete");
+                        },
+                        error : function(err) {
+                            console.log(err);
+                            console.log("error");
+                        }
+                    });
+                });
+
+
+
             });
+        </script>
+
+        <%--구글 맵 스크립트--%>
+        <script>
+            let map;
+            var service;
+            var infowindow;
+
+            function initMap() {
+                var seoul = new google.maps.LatLng(37.5642135, 127.0016985);
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: seoul,
+                    zoom: 15
+                });
+
+                var request = {
+                    location: seoul,
+                    radius: '500',
+                    type: ['restaurant']
+                };
+
+                service = new google.maps.places.PlacesService(map);
+                service.nearbySearch(request, callback);
+
+                function callback(results, status) {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            createMarker(results[i]);
+                        }
+                    }
+                }
+
+
+                function createMarker(place) {
+                    const marker = new google.maps.Marker({
+                        map,
+                        position: place.geometry.location,
+                        label : {
+                            text : place.name,
+                            color : 'black',
+                            fontSize : '8px'
+                        }
+                    });
+                    google.maps.event.addListener(marker, "click", () => {
+                        infowindow.setContent(place.name);
+                        infowindow.open(map);
+                    });
+                }
+
+               /* const icons = {
+                    custom: {
+                        url: "http://localhost:8080/TravelGuide/assets/img/custom_marker.png",
+                        scaledSize : new google.maps.Size(100,30),
+                        origin : new google.maps.Point(0,0),
+                        anchor : new google.maps.Point(0,0)
+                    }
+                };
+
+                map.addListener("click", (event) => {
+                    addMarker(event.latLng, map);
+                });
+
+                function addMarker(location, map) {
+                    // Add the marker at the clicked location, and add the next-available label
+                    // from the array of alphabetical characters.
+                    new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        icon : icons.custom,
+                        label : '1dsadsadsadsadsadsadsadsadsadsads'
+                    });
+                }*/
+
+
+            }
+
+
+
         </script>
 
     </head>
@@ -121,9 +267,9 @@
     <section class="page-section" style="margin-top: 100px">
         <div class="container">
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <!-- Calendar -->
-                <div class="col-md-4">
+                <div class="col-md-4 col-lg-4 col-sm-4">
                     <div class="form-group">
                         <label for="datetimepicker7">출발일</label>
                         <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
@@ -142,41 +288,55 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-
-            <div class="row" style="height: 300px">
-
-                <div class="col-md-2">
-                    <label for="destList">목적지</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">destA</a>
-                                <a class="dropdown-item" href="#">destB</a>
+                    <div class="row" style="margin-bottom : 200px">
+                        <div class="col-md-6 col-lg-6 col-sm-6">
+                            <label for="destList">목적지</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">destA</a>
+                                        <a class="dropdown-item" href="#">destB</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="col-md-6 col-lg-6 col-sm-6">
+                            <label for="courseList">코스 목록</label>
+                            <div id="courseList">
+                                <!-- checkbox list added by js -->
+                            </div>
+                        </div>
+
                     </div>
+
+                    <div class="row justify-content-center">
+                        <button type="button" class="btn btn-primary m-5" id="reserveSubmit">제출</button>
+                        <button type="button" class="btn btn-primary m-5" id="reserveList">예약조회</button>
+                        <button id="ajaxload" class="btn btn-primary">button</button>
+
+                    </div>
+
+
+
+
                 </div>
 
-                <div class="col-md-6">
-                    <label for="courseList">코스 목록</label>
-                        <div id="courseList">
-                            <!-- checkbox list added by js -->
-                        </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 rounded">
+                    <div id="map"></div>
                 </div>
+
             </div>
 
-            <button type="button" class="btn btn-primary" id="reserveSubmit">Submit</button>
-            <button type="button" class="btn btn-primary" id="reserveList">Submit</button>
 
         </div>
     </section>
 
     <!-- Footer Section -->
     <jsp:include page="/footer.jsp" />
+
 
 
 </body>

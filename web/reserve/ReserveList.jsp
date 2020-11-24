@@ -5,6 +5,8 @@
 <html>
 <head>
     <title>Travel Guide :: Reserved List</title>
+
+    <!-- js, css source include -->
     <jsp:include page="/source.jsp"/>
 
 </head>

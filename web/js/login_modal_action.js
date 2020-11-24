@@ -4,10 +4,10 @@ $(function () {
     $("#loginSubmit").on("click", function (event) {
         event.preventDefault();
 
-        if($("#id").val() == '' || $("#pw").val() == '') { alert("아이디와 비밀번호를 입력해주세요."); return false;}
+        if($("#defaultLoginFormEmail").val() == '' || $("#defaultLoginFormPassword").val() == '') { alert("아이디와 비밀번호를 입력해주세요."); return false;}
         var form_data = {
-            id: $("#id").val(),
-            pw: $("#pw").val()
+            id: $("#defaultLoginFormEmail").val(),
+            pw: $("#defaultLoginFormPassword").val()
         };
 
         $.ajax({

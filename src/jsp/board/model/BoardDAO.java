@@ -64,6 +64,7 @@ public class BoardDAO {
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
         String sql = "select * from board where BOARD_NUM = ?";
+        String sql2 = "select * from board_comment where BOARD_NUM = ?";
         BoardBean bean = new BoardBean();
 
         try {
@@ -79,9 +80,29 @@ public class BoardDAO {
                 bean.setBoard_owner_id(result.getString("BOARD_OWNER_ID"));
                 bean.setBoard_date(result.getDate("BOARD_DATE"));
             }
+
             else {
                 return null;
             }
+
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.setInt(1, num);
+
+            result = pstmt.executeQuery();
+
+            ArrayList<CommentBean> commentList = new ArrayList<>();
+
+            while(result.next()) {
+                CommentBean comment = new CommentBean();
+                comment.setWrite_date(result.getString("COMMENT_DATE"));
+                comment.setUser_id(result.getString("COMMENT_USER_ID"));
+                comment.setContent(result.getString("COMMENT_CONTENT"));
+                commentList.add(comment);
+            }
+
+            bean.setCommentList(commentList);
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -105,6 +126,31 @@ public class BoardDAO {
             pstmt.setString(2, bean.getBoard_subject());
             pstmt.setString(3, bean.getBoard_content());
             pstmt.setDate(4, bean.getBoard_date());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            DBConnection.disconnect(conn, pstmt);
+        }
+        return true;
+    }
+
+    public boolean insertComment(CommentBean bean, int board_num) {
+        conn = DBConnection.getConnection();
+        // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
+
+        String sql = "insert into board_comment(BOARD_NUM,COMMENT_USER_ID,COMMENT_DATE,COMMENT_CONTENT) values(?,?,?,?)";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, board_num);
+            pstmt.setString(2, bean.getUser_id());
+            pstmt.setString(3, bean.getWrite_date());
+            pstmt.setString(4, bean.getContent());
 
             pstmt.executeUpdate();
 

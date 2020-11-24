@@ -11,6 +11,5 @@
     String result = (String)session.getAttribute("result");
     System.out.println((String)session.getAttribute("result"));
 
-
     out.print(result);
 %>

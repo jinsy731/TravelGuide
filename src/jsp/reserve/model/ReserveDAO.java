@@ -191,4 +191,33 @@ public class ReserveDAO {
         return true;
     }
 
+    // 여행지 반환
+    public ArrayList<TravelInfoBean> getTravelDistList() {
+        conn = DBConnection.getConnection();
+        // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
+
+        String sql = "select tdName, tdLatitude, tdLongitude from travel_info";
+        ArrayList<TravelInfoBean> beanList = new ArrayList<TravelInfoBean>();
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet result = pstmt.executeQuery();
+
+            while(result.next()) {
+                TravelInfoBean bean = new TravelInfoBean();
+                bean.setTdName(result.getString("tdName"));
+                bean.setTdLatitude(result.getDouble("tdLatitude"));
+                bean.setTdLongitude(result.getDouble("tdLongitude"));
+                beanList.add(bean);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            DBConnection.disconnect(conn, pstmt);
+        }
+        return beanList;
+    }
+
 }

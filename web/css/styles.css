@@ -540,6 +540,7 @@ pre code {
   overflow-y: scroll;
 }
 
+
 .container,
 .container-fluid,
 .container-xl,
@@ -10238,3 +10239,4 @@ form .row:first-child .floating-label-form-group {
 .copyright {
   background-color: #1a252f;
 }
+

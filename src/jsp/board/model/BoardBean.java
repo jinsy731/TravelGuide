@@ -1,6 +1,7 @@
 package jsp.board.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class BoardBean {
     int board_num;
@@ -8,6 +9,7 @@ public class BoardBean {
     String board_subject;
     String board_content;
     Date board_date;
+    ArrayList<CommentBean> commentList = new ArrayList<>();
 
     public int getBoard_num() {
         return board_num;
@@ -27,6 +29,14 @@ public class BoardBean {
 
     public String getBoard_subject() {
         return board_subject;
+    }
+
+    public ArrayList<CommentBean> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(ArrayList<CommentBean> commentList) {
+        this.commentList = commentList;
     }
 
     public void setBoard_content(String board_content) {

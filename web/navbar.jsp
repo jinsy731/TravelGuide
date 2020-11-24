@@ -1,15 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-    <head>
-
-    </head>
-
-    <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/TravelGuide/index.do">Travel Guide</a>
+            <a class="navbar-brand js-scroll-trigger" href="/TravelGuide/index.do">Web Project</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -44,42 +38,56 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="loginForm" name="sentloginInfo" method="post">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                    <!-- Default form login -->
+                    <form class="text-center border border-light p-5" action="#!">
 
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0">
-                                        <label>ID</label>
-                                        <input class="form-control" id="id" name="id" type="text" placeholder="ID" required="required" data-validation-required-message="Please enter your ID." />
-                                        <p class="help-block text-danger"></p>
-                                    </div>
+                        <p class="h4 mb-4">Sign in</p>
+
+                        <!-- Email -->
+                        <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+                        <!-- Password -->
+                        <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <!-- Remember me -->
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                                    <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
                                 </div>
-
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0">
-                                        <label>Password</label>
-                                        <input class="form-control" id="pw" name="pw" type="password" placeholder="Password" required="required" data-validation-required-message="Please enter your Password." />
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-
+                            </div>
+                            <div>
+                                <!-- Forgot password -->
+                                <a href="">Forgot password?</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" id="joinSubmit">Join</button>
-                        <button type="submit" class="btn btn-primary" id="loginSubmit">Login</button>
-                    </div>
-                </form>
+
+                        <!-- Sign in button -->
+                        <button class="btn btn-info btn-block my-4" type="submit" id="loginSubmit">Sign in</button>
+
+                        <!-- Register -->
+                        <p>Not a member?
+                            <a href="JoinForm.do">Register</a>
+                        </p>
+
+                        <!-- Social login -->
+                        <p>or sign in with:</p>
+
+                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+                        <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+                        <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+                        <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+
+                    </form>
+                    <!-- Default form login -->
+                </div>
+                <div class="modal-footer"></div>
             </div>
+
         </div>
     </div>
 
     <script src="/TravelGuide/js/login_modal_action.js"></script>
     <script src="/TravelGuide/js/scripts.js"></script>
-
-    </body>
-</html>
-
