@@ -1,14 +1,45 @@
 $(function () {
 
+    $()
+
     // LoginSubmit Event Handler
-    $("#loginSubmit").on("click", function (event) {
+    $("#loginSubmit").on("click", async function (event) {
         event.preventDefault();
 
-        if($("#defaultLoginFormEmail").val() == '' || $("#defaultLoginFormPassword").val() == '') { alert("아이디와 비밀번호를 입력해주세요."); return false;}
+        var id = $("#formId");
+        var pw = $("#formPw");
+
+        if (id.val() == '' || pw.val() == '') {
+            alert("아이디와 비밀번호를 입력해주세요.");
+            return false;
+        }
+
+        var rsa = new RSAKey();
+
+        await $.get({
+            url : "MemberInitRsaAction.do",
+            dataType: "text",
+
+            success : function(key) {
+                console.log(key);
+                key = $.parseJSON(key);
+                console.log(key.RSAModulus, key.RSAExponent);
+                rsa.setPublic(key.RSAModulus,key.RSAExponent);
+            }
+        });
+        // rsa 암호화
+
+        $("#USER_ID").val(rsa.encrypt(id.val()));
+        $("#USER_PW").val(rsa.encrypt(pw.val()));
+
+        id.val("");
+        pw.val("");
+
         var form_data = {
-            id: $("#defaultLoginFormEmail").val(),
-            pw: $("#defaultLoginFormPassword").val()
+            USER_ID: $("#USER_ID").val(),
+            USER_PW: $("#USER_PW").val()
         };
+
 
         $.ajax({
             url: "MemberLoginAction.do",

@@ -24,7 +24,7 @@ public class MemberDAO {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "insert into user_info values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_info values(?,password(?),?,?,?,?,?,?,?)";
 
         try {
             String d = member.getUSER_BIRTH_YY() + "-"
@@ -55,24 +55,32 @@ public class MemberDAO {
         return true;
     }
 
-    public int loginCheck(String id, String pw) {
+    public int auth(String id, String pw) {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql ="select * from user_info where user_id = ?";
+        String sql ="select * from user_info where USER_ID = ?";
+        String sql2 = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
 
-            if(rs.next()) {
-                if(rs.getString("USER_PW").equals(pw)) {
-                    return 1;  // pw가 일치할 때 1
-                }
-                else return 0; // pw가 일치하지 않을 때 0
+            /*
+                id를 조건으로 select하고, id가 있으면 id와 pw를 조건으로 select해서 있으면 login
+             */
+            if (rs.next()) {
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setString(1, id);
+                pstmt.setString(2, pw);
+                ResultSet rs2 = pstmt.executeQuery();
 
+                if(rs2.next()) {
+                    return 1;  // pw가 일치할 때 1
+                } else return 0; // pw가 일치하지 않을 때 0
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,10 +112,8 @@ public class MemberDAO {
                 member.setUSER_GENDER(rs.getString("USER_GENDER"));
                 member.setUSER_HINT(rs.getString("USER_HINT"));
 
-                String[] substr_date = rs.getString("USER_DATE").split("/");
-                member.setUSER_BIRTH_YY(substr_date[0]);
-                member.setUSER_BIRTH_MM(substr_date[1]);
-                member.setUSER_BIRTH_DD(substr_date[2]);
+                String date = rs.getDate("USER_BIRTH").toString();
+                System.out.print(date);
 
                 return member;
 
@@ -153,18 +159,60 @@ public class MemberDAO {
         return false;
     }
 
-    public int deleteMember(String id) {
+    public String changePassword(String id, String pw, String new_pw) {
+        conn = DBConnection.getConnection();
+        String sql = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
+        String sql2 = "update user_info set USER_PW = password(?) where USER_ID = ?";
+        String result = "";
+
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            pstmt.setString(2, pw);
+            ResultSet rs = pstmt.executeQuery();
+
+            /*
+                id와 password로 select해서 해당하는 row가 있으면 update,
+                없으면 비밀번호가 틀린 것 -> result를 invalid pw
+             */
+            if (rs.next()) {
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setString(1, new_pw);
+                pstmt.setString(2, id);
+                pstmt.executeUpdate();
+            } else {
+                result = "invalid pw";
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.disconnect(conn, pstmt);
+            return result;
+        }
+    }
+
+    public String deleteMember(String id, String pw) {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
-
-        String sql ="delete from user_info where user_id = ?";
+        String sql = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
+        String sql2 ="delete from user_info where USER_ID = ? and USER_PW = password(?)";
+        String result = "";
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
-            int check = pstmt.executeUpdate();
+            pstmt.setString(2, pw);
+            ResultSet rs = pstmt.executeQuery();
 
-            return check;
+            if (rs.next()) {
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setString(1, id);
+                pstmt.setString(2, pw);
+                pstmt.executeUpdate();
+            } else {
+                result = "invalid pw";
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +220,6 @@ public class MemberDAO {
         finally {
             DBConnection.disconnect(conn, pstmt);
         }
-        return -1;
+        return result;
     }
 }

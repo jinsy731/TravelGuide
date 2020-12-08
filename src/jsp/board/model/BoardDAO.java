@@ -10,7 +10,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class BoardDAO {
+public class
+BoardDAO {
 
     private static BoardDAO instance;
 
@@ -35,8 +36,8 @@ public class BoardDAO {
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, (page-1)*5);
-            pstmt.setInt(2, page*5);
+            pstmt.setInt(1, (page-1)*10);
+            pstmt.setInt(2, 10);
 
             ResultSet result = pstmt.executeQuery();
 
@@ -162,6 +163,30 @@ public class BoardDAO {
             DBConnection.disconnect(conn, pstmt);
         }
         return true;
+    }
+
+    public int getRowCount() {
+        conn = DBConnection.getConnection();
+
+        String sql = "select count(*) from board";
+        int count = 0;
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet result = pstmt.executeQuery();
+
+            if(result.next()) {
+                count = result.getInt("count(*)");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBConnection.disconnect(conn, pstmt);
+        }
+
+        return count;
     }
 
 

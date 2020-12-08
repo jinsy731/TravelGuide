@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-white text-uppercase text-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="/TravelGuide/index.do">Web Project</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,11 +10,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ReserveForm.rsrv">Reserve</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="BoardListAction.board">Board</a></li>
+<%--                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a></li>--%>
+<%--                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>--%>
+<%--                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>--%>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ReserveFormLoadAction.rsrv">Reserve</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="BoardListAction.board?page=1">Board</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Mypage.do">Mypage</a></li>
 
                     <% if(session.getAttribute("sessionID") == null) {
                         out.print("        <li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger\" data-toggle=\"modal\" data-target=\"#loginModal\">Login</a></li>\n");
@@ -44,11 +45,18 @@
 
                         <p class="h4 mb-4">Sign in</p>
 
-                        <!-- Email -->
-                        <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+                        <!-- for RSA encrypt -->
+                        <input type="hidden" id="RSAModulus" value="${RSAModulus}"/>
+                        <input type="hidden" id="RSAExponent" value="${RSAExponent}"/>
+
+                        <input type="hidden" id="USER_ID" name="USER_ID">
+                        <input type="hidden" id="USER_PW" name="USER_PW">
+
+                        <!-- id -->
+                        <input type="text" id="formId" class="form-control mb-4" placeholder="ID">
 
                         <!-- Password -->
-                        <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                        <input type="password" id="formPw" class="form-control mb-4" placeholder="Password">
 
                         <div class="d-flex justify-content-around">
                             <div>

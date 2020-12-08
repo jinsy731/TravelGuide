@@ -28,6 +28,18 @@
         })
     </script>
 
+    <style>
+        .board-table {
+            height: 30px;
+            text-align: center;
+            table-layout: fixed;
+        }
+        .board-table-item {
+            font-size : 10px;
+
+        }
+    </style>
+
 </head>
 <body>
 
@@ -35,27 +47,33 @@
     <jsp:include page="/navbar.jsp"/>
 
     <!-- 게시판 -->
-    <section class="page-section" style="margin-top: 100px">
-
+    <section class="page-section" style="margin-top: 50px">
+        <hr>
         <div class="container">
-            <div class = "row">
-                <table class="table table-striped table-hover" style="text-align:center; border:1px solid #dddddd">
-                    <thead>
-                    <tr>
-                        <th style="background-color: #eeeeee; text-align: center;">번호</th>
+            <div class="row">
+                <div class="col">
+                    <p><h5>게시판</h5></p>
+                    <hr class="custom-hr">
+                </div>
+            </div>
+            <div class = "row justify-content-center">
+                <table class="table table-hover">
+                <thead>
+                    <tr class="board-table">
+                        <th style="width: 50px">번호</th>
 
-                        <th style="background-color: #eeeeee; text-align: center;">제목</th>
+                        <th style="width: 300px">제목</th>
 
-                        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+                        <th style="width: 100px">작성자</th>
 
-                        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+                        <th style="width: 100px">작성일</th>
                     </tr>
                     </thead>
                     <tbody>
                     <%
                         ArrayList<BoardBean> list = (ArrayList<BoardBean>)session.getAttribute("boardlist");
                         for(BoardBean bean : list) {
-                            out.print("<tr class=\"table_item\">");
+                            out.print("<tr class=\"board-table board-table-item table_item\">");
                             out.print("<td data-field=\"num\" data-formatter=\"LinkFormatter\">"+bean.getBoard_num()+"</td>");
                             out.print("<td>"+bean.getBoard_subject()+"</td>");
                             out.print("<td>"+bean.getBoard_owner_id()+"</td>");
@@ -72,9 +90,7 @@
 
 
             <div class="row justify-content-between">
-
-                    <div></div>
-
+                <div></div>
                     <nav aria-label="Page navigation example" >
                         <ul class="pagination">
                             <li class="page-item">
@@ -83,9 +99,12 @@
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+
+                            <% int count = (int)session.getAttribute("listcount"); %>
+                            <% for(int i = 1; i < (count/5)+1; i++) { %>
+                            <li class="page-item"><a class="page-link" href="BoardListAction.board?page=<%= i%>"><%= i%></a></li>
+                            <% } %>
+
                             <li class="page-item">
                                 <a class="page-link" href="#!" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -95,8 +114,7 @@
                         </ul>
                     </nav>
                     <button class="btn btn-primary pull-right right float-right" id="btn_write">글쓰기</button>
-
-                </div>
+            </div>
         </div>
     </section>
 
@@ -106,3 +124,6 @@
     </body>
 
 </html>
+
+
+

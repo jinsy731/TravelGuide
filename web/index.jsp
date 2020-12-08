@@ -13,13 +13,20 @@
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
   <jsp:include page="source.jsp"/>
-  <%--<!-- Font Awesome icons (free version)-->
-  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-  <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/styles.css" rel="stylesheet" />--%>
+
+  <style>
+    .main-intro-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .main-img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
+  </style>
 
 </head>
 <body id="page-top">
@@ -30,27 +37,92 @@
 
 <section id="content">
   <!-- Masthead-->
-  <header class="masthead bg-primary text-white text-center" style="background-image : url('assets/img/main_header.png')">
-    <div class="container d-flex align-items-center flex-column">
-      <!-- Masthead Avatar Image-->
-      <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />
-      <!-- Masthead Heading-->
-      <h1 class="masthead-heading text-uppercase mb-0">Web Project</h1>
-      <!-- Icon Divider-->
-      <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-        <div class="divider-custom-line"></div>
-      </div>
-      <!-- Masthead Subheading-->
-      <p class="masthead-subheading font-weight-light mb-0">Travel - Guide - Reservation</p>
-    </div>
+  <header class="masthead bg-white text-white text-center">
+<%--    <div class="container d-flex align-items-center flex-column">--%>
+<%--      <!-- Masthead Avatar Image-->--%>
+<%--      <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />--%>
+<%--      <!-- Masthead Heading-->--%>
+<%--      <h1 class="masthead-heading text-uppercase mb-0">Web Project</h1>--%>
+<%--      <!-- Icon Divider-->--%>
+<%--      <div class="divider-custom divider-light">--%>
+<%--        <div class="divider-custom-line"></div>--%>
+<%--        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>--%>
+<%--        <div class="divider-custom-line"></div>--%>
+<%--      </div>--%>
+<%--      <!-- Masthead Subheading-->--%>
+<%--      <p class="masthead-subheading font-weight-light mb-0">Travel - Guide - Reservation</p>--%>
+<%--    </div>--%>
+        <div id="carouselExampleIndicators7" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="11"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="12"></li>
+
+
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="img-fluid main-img" src="assets/img/남이섬1..jpg" data-src="" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/남이섬2.jpeg" data-src="" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/남이섬3.jpg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/수원화성.jpeg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/창덕궁1.jpg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/창덕궁2.jpg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/창덕궁3.png" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/북촌3.jpg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/북촌2.jpeg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/경복궁3.webp" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/북촌4.jpg" data-src="" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="img-fluid main-img" src="assets/img/경복궁1.webp" data-src="" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators7" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators7" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
   </header>
   <!-- Portfolio Section-->
   <section class="page-section portfolio" id="portfolio">
     <div class="container">
       <!-- Portfolio Section Heading-->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Recommended</h2>
       <!-- Icon Divider-->
       <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -65,7 +137,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/travel2.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 2-->
@@ -74,7 +146,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/북촌.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 3-->
@@ -83,7 +155,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/circus.png" alt="" />
+            <img class="img-fluid" src="assets/img/성산1.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 4-->
@@ -92,7 +164,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/game.png" alt="" />
+            <img class="img-fluid" src="assets/img/창덕궁2.jpg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 5-->
@@ -101,7 +173,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/safe.png" alt="" />
+            <img class="img-fluid" src="assets/img/수원화성.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 6-->
@@ -110,7 +182,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="" />
+            <img class="img-fluid" src="assets/img/남이섬3.jpg" alt="" />
           </div>
         </div>
       </div>

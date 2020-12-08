@@ -29,7 +29,7 @@ public class BoardWriteAction implements Action {
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setNextPath("BoardListAction.board");
+        forward.setNextPath("BoardListAction.board?page=1");
 
         return forward;
     }

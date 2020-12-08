@@ -4,12 +4,13 @@ import jsp.util.Action;
 import jsp.util.ActionForward;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.servlet.ServletException;
 
-
+@WebServlet(urlPatterns = {"*.do"})
 public class MemberController extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         doProcess(request, response);
@@ -80,41 +81,64 @@ public class MemberController extends javax.servlet.http.HttpServlet {
                 forward.setRedirect(false);
                 forward.setNextPath("member/ResultForm.jsp");
             }
+            else if(command.equals("Mypage.do"))
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("member/mypage.jsp");
+            }
+            else if(command.equals("SecessionControl.do"))
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("member/secession_control.jsp");
+            }
+            else if(command.equals("ChangePasswordControl.do"))
+            {
+                forward = new ActionForward();
+                forward.setRedirect(false);
+                forward.setNextPath("member/change_complete.jsp");
+            }
 
             // 각종 처리 액션
-            else if(command.equals("MemberLoginAction.do")) // 로그인 처리
+            else if (command.equals("MemberInitRsaAction.do")) {
+                action = new MemberInitRsaAction();
+                forward = action.execute(request, response);
+            } else if (command.equals("MemberChangePasswordAction.do")) {
+                action = new MemberChangePasswordAction();
+                forward = action.execute(request, response);
+            } else if (command.equals("MemberSecessionAction.do")) {
+                action = new MemberSecessionAction();
+                forward = action.execute(request, response);
+            } else if (command.equals("MemberShowInfoAction.do")) {
+                action = new MemberShowInfoAction();
+                forward = action.execute(request, response);
+            } else if (command.equals("LoginCheckAction.do")) {
+                action = new LoginCheckAction();
+                forward = action.execute(request, response);
+            } else if (command.equals("MemberLoginAction.do")) // 로그인 처리
             {
                 action = new MemberLoginAction();
                 forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberLogoutAction.do")) // 로그아웃 처리
+            } else if (command.equals("MemberLogoutAction.do")) // 로그아웃 처리
             {
                 action = new MemberLogoutAction();
                 forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberJoinAction.do")) // 회원가입 처리
+            } else if (command.equals("MemberJoinAction.do")) // 회원가입 처리
             {
                 action = new MemberJoinAction();
                 forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberInfoAction.do")) // 회원정보화면에 보여줄 정보 처리
+            } else if (command.equals("MemberInfoAction.do")) // 회원정보화면에 보여줄 정보 처리
             {
                 action = new MemberInfoAction();
                 forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberModifyFormAction.do")) // 회원수정화면에 보여줄 정보 처리
+            } else if (command.equals("MemberModifyFormAction.do")) // 회원수정화면에 보여줄 정보 처리
             {
                 action = new MemberModifyFormAction();
                 forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberModifyAction.do")) // 회원수정 처리
+            } else if (command.equals("MemberModifyAction.do")) // 회원수정 처리
             {
                 action = new MemberModifyAction();
-                forward = action.execute(request, response);
-            }
-            else if(command.equals("MemberDeleteAction.do")) // 회원삭제 처리
-            {
-                action = new MemberDeleteAction();
                 forward = action.execute(request, response);
             }
 

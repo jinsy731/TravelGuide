@@ -5,12 +5,13 @@ import jsp.util.ActionForward;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+@WebServlet(urlPatterns = {"*.rsrv"})
 public class ReserveController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -67,6 +68,11 @@ public class ReserveController extends HttpServlet {
                 forward.setNextPath("/reserve/getTravelDestControl.jsp");
             }
 
+            else if(command.equals("ReserveFormLoadAction.rsrv"))
+            {
+                action = new ReserveFormLoadAction();
+                forward = action.execute(request, response);
+            }
 
             else if(command.equals("ReserveGetCourseListAction.rsrv")) // 로그인 처리
             {

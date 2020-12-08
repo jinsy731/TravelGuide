@@ -19,7 +19,8 @@ public class MemberLogoutAction implements Action {
            forward.setRedirect(true);
 
            // request의 헤더에서 이전 페이지의 URL을 뽑아 로그아웃 후 이전 페이지로 돌아감
-           forward.setNextPath(request.getHeader("referer"));
+           //forward.setNextPath(request.getHeader("referer"));
+           forward.setNextPath("index.do");
 
            return forward;
        }

@@ -4,10 +4,12 @@ import jsp.member.model.MemberBean;
 import jsp.member.model.MemberDAO;
 import jsp.util.Action;
 import jsp.util.ActionForward;
+import jsp.util.RSAEncrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.PrivateKey;
 
 public class MemberJoinAction implements Action {
     @Override
@@ -19,8 +21,33 @@ public class MemberJoinAction implements Action {
 
         request.setCharacterEncoding("UTF-8");
 
-        member.setUSER_ID(request.getParameter("id"));
-        member.setUSER_PASSWORD(request.getParameter("pw"));
+        /*
+            복호화 부분
+         */
+        RSAEncrypt rsa = new RSAEncrypt();
+
+        // 아이디와 비밀번호를 가져온다.
+        String userId = request.getParameter("JOIN_USER_ID");
+        String userPw = request.getParameter("JOIN_USER_PW");
+        PrivateKey privateKey = (PrivateKey) session.getAttribute("_RSA_WEB_Key_");
+
+        System.out.println("복호화 전 ID : " + userId);
+        System.out.println("복호화 전 PW : " + userPw);
+
+        // 복호화
+        userId = rsa.decryptRsa(privateKey, userId);
+        userPw = rsa.decryptRsa(privateKey, userPw);
+
+        System.out.println("복호화 후 ID : " + userId);
+        System.out.println("복호화 후 PW : " + userPw);
+
+        // 개인키 삭제
+        session.removeAttribute("_RSA_WEB_Key_");
+
+
+
+        member.setUSER_ID(userId);
+        member.setUSER_PASSWORD(userPw);
         member.setUSER_EMAIL(request.getParameter("email"));
         member.setUSER_ADDR(request.getParameter("addr"));
         member.setUSER_NAME(request.getParameter("name"));

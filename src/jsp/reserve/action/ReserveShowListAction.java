@@ -15,8 +15,13 @@ public class ReserveShowListAction implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReserveDAO dao = ReserveDAO.getInstance();
         HttpSession session = request.getSession();
-        System.out.println((String)session.getAttribute("sessionID"));
-        ArrayList<ReserveBean> list = dao.getReserveList((String)session.getAttribute("sessionID"));
+        String id = (String)session.getAttribute("sessionID");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int count = dao.getRowCount(id);
+
+        System.out.print(count);
+        ArrayList<ReserveBean> list = dao.getReserveList(id, page);
+        session.setAttribute("reserve_list_count", count);
         session.setAttribute("reserve_list", list);
 
         ActionForward forward = new ActionForward();

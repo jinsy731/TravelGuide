@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <servlet>
+ <!--   <servlet>
         <description>Controller</description>
         <display-name>MemberController</display-name>
         <servlet-name>MemberController</servlet-name>
@@ -13,21 +13,21 @@
     <servlet-mapping>
         <servlet-name>MemberController</servlet-name>
         <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <servlet>
-        <description>Controller</description>
-        <display-name>BoardController</display-name>
-        <servlet-name>BoardController</servlet-name>
-        <servlet-class>jsp.board.action.BoardController</servlet-class>
-    </servlet>
+<!--    <servlet>-->
+<!--        <description>Controller</description>-->
+<!--        <display-name>BoardController</display-name>-->
+<!--        <servlet-name>BoardController</servlet-name>-->
+<!--        <servlet-class>jsp.board.action.BoardController</servlet-class>-->
+<!--    </servlet>-->
 
-    <servlet-mapping>
+ <!--   <servlet-mapping>
         <servlet-name>BoardController</servlet-name>
         <url-pattern>*.board</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <servlet>
+ <!--   <servlet>
         <description>Controller</description>
         <display-name>ReserveController</display-name>
         <servlet-name>ReserveController</servlet-name>
@@ -38,4 +38,6 @@
         <servlet-name>ReserveController</servlet-name>
         <url-pattern>*.rsrv</url-pattern>
     </servlet-mapping>
+-->
+
 </web-app>

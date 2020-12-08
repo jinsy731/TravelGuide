@@ -4,24 +4,26 @@
     <head>
         <meta charset="UTF-8">
         <title>Travel Guide :: Join</title>
+        <jsp:include page="../source.jsp"/>
+        <script src = "/TravelGuide/js/join.js"></script>
 
-        <!-- Popper js -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<%--        <!-- Popper js -->--%>
+<%--        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<%--        <!-- Bootstrap core JS-->--%>
+<%--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
+<%--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>--%>
+<%--        <!-- Third party plugin JS-->--%>
+<%--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>--%>
 
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<%--        <!-- Font Awesome icons (free version)-->--%>
+<%--        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>--%>
+<%--        <!-- Google fonts-->--%>
+<%--        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />--%>
+<%--        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />--%>
 
-        <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->
-        <link href="css/styles.css" rel="stylesheet" />
+<%--        <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->--%>
+<%--        <link href="css/styles.css" rel="stylesheet" />--%>
 
     </head>
 
@@ -32,19 +34,23 @@
 
 
         <!-- form part -->
-        <section id="content" class = "page-section" style="margin-top : 100px">
+        <section id="content" class = "page-section" style="margin-top : 50px">
 
             <div class="container">
-                <form action="MemberJoinAction.do" method="post">
+                <form action="MemberJoinAction.do" method="post" onsubmit="return joinSubmit(event)">
+
+                    <input type="hidden" id="JOIN_USER_ID" name="JOIN_USER_ID" value="default">
+                    <input type="hidden" id="JOIN_USER_PW" name="JOIN_USER_PW" value="default">
+
                     <div class="row justify-content-center">  <!-- row에서 정렬해야 정렬됨 -->
                         <div class="col-lg-5">
                             <div class="form-group">
-                                <label for="id" >ID</label>
-                                <input type="text" class="form-control" id="id" placeholder="ID" name="id">
+                                <label for="joinId" >ID</label>
+                                <input type="text" class="form-control" id="joinId" placeholder="ID" name="id">
                             </div>
                             <div class="form-group">
-                                <label for="pw" >Password</label>
-                                <input type="password" class="form-control" id="pw" name="pw">
+                                <label for="joinPw" >Password</label>
+                                <input type="password" class="form-control" id="joinPw" name="pw">
                             </div>
                             <div class="form-group">
                                 <label for="email" >email</label>

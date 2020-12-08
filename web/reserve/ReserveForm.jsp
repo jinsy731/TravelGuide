@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="jsp.reserve.model.TravelInfoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -13,11 +15,27 @@
             #map {
                 height: 100%;
             }
+
+            .container-info {
+                padding : 1.0rem
+            }
+
+            .container-info span{
+                font-size: 10px;
+                color: #98979a;
+                margin-right : 0.5rem
+            }
+
+            .dropdown-dest {
+                max-height: 300px;
+                width : 300px;
+            }
+
         </style>
 
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCijcJxKaBv72OlNvM6yYO10UP47Ago11Y&callback=initMap&libraries=places&v=weekly&region=kr" defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCijcJxKaBv72OlNvM6yYO10UP47Ago11Y&callback=initMap&libraries=places&region=kr" defer
         ></script>
         <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
 
@@ -71,15 +89,25 @@
                     })
                 }) // Dropdown Item Event Listener End
 
-                <c:if test="${sessionScope.sessionID != null}" var="loginCheck"></c:if>
+                function loginCheck() {
+                    return new Promise(((resolve, reject) => {
+                        $.ajax({
+                            url: "LoginCheckAction.do",
+                            type: "get",
+                            dataType: "text",
 
-                $('#reserveSubmit').click( function() {
-                    var check = '<c:out value="${loginCheck}"/>';
-                    if( check == 'false') {
-                        alert("로그인 후 이용 가능합니다.");
-                        return false;
-                    }
-                    else {
+                            success: function (result) {
+                                if (result.trim() === 'false') {
+                                    alert("로그인 후 이용 가능합니다.");
+                                    reject();
+                                } else { resolve();}
+                            }
+                        });
+                    }))
+                }
+
+                function formCheck() {
+                    return new Promise(((resolve, reject) => {
                         var list = [];
                         $('input[name=box]:checked').each(function() {
                             list.push( $(this).siblings(':eq(0)').text().trim());
@@ -90,14 +118,17 @@
                             destination : $('#destList').text(),
                             course : list
                         }
-                        if(submitData.startDate == "" || submitData.endDate == "" || submitData.destination == "" || submitData.course.length == 0) {
+                        if(submitData.startDate == "" || submitData.endDate == "" || submitData.destination == "") {
                             alert("정보를 모두 입력해주세요");
-                            return false;
-                        }
+                            reject();
+                        } else { resolve(submitData);}
 
-                        alert(submitData.startDate);
+                    }))
+                }
 
-                        $.ajax( {
+                function submitReservation(submitData) {
+                    return new Promise(((resolve, reject) => {
+                        $.ajax({
                             url : "ReserveSubmitAction.rsrv",
                             data : submitData,
                             traditional : true,
@@ -105,154 +136,139 @@
                             dataType : "text",
 
                             success : function(data) {
-                                if(data.trim() == "success")
+                                if(data.trim() == "success") {
                                     alert("등록 완료");
-                                else
+                                    location.reload();
+                                    resolve();
+                                } else {
                                     alert("등록 실패");
+                                    reject();
+                                }
                             }
                         });
 
-                        location.reload();
-                    }
+                    }))
+                }
 
-                }); // Reserve Submit Event Handler END
 
-                $('#reserveList').click(function () {
-                    location.href = "ReserveShowListAction.rsrv";
-                }); // ReserveList
-
-                $('#ajaxload').click( function() {
-                    $.ajax({
-                        url : "ReserveGetTravelDestAction.rsrv",
-                        type : "get",
-                        contentType : "application/json; charset=utf-8",
-                        async : true,
-
-                        success : function(data) {
-                            const markers = [];
-                            for(var i in data) {
-                                if(i%2 == 0) continue;
-                                const icons = {
-                                    custom: {
-                                        url: "http://localhost:8080/TravelGuide/assets/img/custom_marker.png",
-                                        scaledSize : new google.maps.Size(data[i].tdName.length*15,40),
-                                        origin : new google.maps.Point(0,0),
-                                        anchor : new google.maps.Point(0,0)
-                                    }
-                                };
-                                const marker = new google.maps.Marker({
-                                    map,
-                                    position : new google.maps.LatLng(data[i].tdLatitude, data[i].tdLongitude),
-                                    icon : icons.custom,
-                                    label : {
-                                        text : data[i].tdName,
-                                        fontSize : "8px"
-                                    }
-                                });
-                                markers[i] = marker;
-                                marker.addListener("click", () => {
-                                    map.setZoom(15);
-                                    map.setCenter(marker.getPosition());
-                                })
-                            }
-
-                            new MarkerClusterer(map, markers, {
-                                imagePath:
-                                    "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-                            });
-                        },
-                        complete : function() {
-                            console.log("complete");
-                        },
-                        error : function(err) {
-                            console.log(err);
-                            console.log("error");
-                        }
-                    });
+                $('#reserveSubmit').click( function() {
+                    loginCheck()
+                    .then(formCheck)
+                    .then(submitReservation);
                 });
 
 
+                $('#reserveList').click(function () {
+                    loginCheck()
+                    .then(() => {location.href = "ReserveShowListAction.rsrv?page=1";});
+                }); // ReserveList
 
-            });
-        </script>
 
-        <%--구글 맵 스크립트--%>
-        <script>
+            }); // document ready part end
+
             let map;
-            var service;
-            var infowindow;
+            let service;
+            var markers = [];
+            var _data;
+            var content = [];
+
 
             function initMap() {
                 var seoul = new google.maps.LatLng(37.5642135, 127.0016985);
 
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: seoul,
-                    zoom: 15
+                    zoom: 7,
+                    disableDefaultUI : true
                 });
 
-                var request = {
-                    location: seoul,
-                    radius: '500',
-                    type: ['restaurant']
-                };
-
-                service = new google.maps.places.PlacesService(map);
-                service.nearbySearch(request, callback);
-
-                function callback(results, status) {
-                    if (status == google.maps.places.PlacesServiceStatus.OK) {
-                        for (var i = 0; i < results.length; i++) {
-                            createMarker(results[i]);
-                        }
-                    }
-                }
-
-
-                function createMarker(place) {
-                    const marker = new google.maps.Marker({
-                        map,
-                        position: place.geometry.location,
-                        label : {
-                            text : place.name,
-                            color : 'black',
-                            fontSize : '8px'
-                        }
-                    });
-                    google.maps.event.addListener(marker, "click", () => {
-                        infowindow.setContent(place.name);
-                        infowindow.open(map);
-                    });
-                }
-
-               /* const icons = {
-                    custom: {
-                        url: "http://localhost:8080/TravelGuide/assets/img/custom_marker.png",
-                        scaledSize : new google.maps.Size(100,30),
-                        origin : new google.maps.Point(0,0),
-                        anchor : new google.maps.Point(0,0)
-                    }
-                };
-
-                map.addListener("click", (event) => {
-                    addMarker(event.latLng, map);
-                });
-
-                function addMarker(location, map) {
-                    // Add the marker at the clicked location, and add the next-available label
-                    // from the array of alphabetical characters.
-                    new google.maps.Marker({
-                        position: location,
-                        map: map,
-                        icon : icons.custom,
-                        label : '1dsadsadsadsadsadsadsadsadsadsads'
-                    });
-                }*/
-
+                setMap();
 
             }
 
 
 
+            function setMap() {
+                service = new google.maps.places.PlacesService(map);
+                $.ajax({
+                    url : "ReserveGetTravelDestAction.rsrv",
+                    type : "get",
+                    contentType : "application/json; charset=utf-8",
+
+                    success : function(data) {
+
+                        _data = data;
+                        var infowindow = new google.maps.InfoWindow();
+
+                        for(var i in data) {
+
+                            var marker = new google.maps.Marker({
+                                map : map,
+                                position : new google.maps.LatLng(data[i].tdLatitude, data[i].tdLongitude),
+                                label : {
+                                    text : data[i].tdName
+                                }
+                            });
+
+                            _data[i].tdCnvFclty = (_data.tdCnvFclty != null && _data.tdCnvFclty != 'null') ? _data[i].tdCnvFclty : '';
+                            _data[i].tdStayInfo = (_data.tdStayInfo != null && _data.tdStayInfo != 'null') ? _data[i].tdStayInfo : '';
+                            _data[i].tdExFclty = (_data.tdExFclty != null && _data.tdExFclty != 'null') ? _data[i].tdExFclty : '';
+                            _data[i].tdRcrFclty  = (_data.tdRcrFclty  != null && _data.tdRcrFclty  != 'null') ? _data[i].tdRcrFclty : '';
+                            _data[i].tdsuprtFclty = (_data.tdsuprtFclty != null && _data.tdsuprtFclty != 'null') ? _data[i].tdsuprtFclty : '';
+
+
+                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                return function() {
+                                    // row 안에 col 넣어줘야 제대로 작동
+                                    var content =
+                                        `<div class="container container-info">
+                                            <div class="row">
+                                                <div class="col">
+                                                <h2 id="destName">\${_data[i].tdName}</h2>
+                                                <hr>
+                                                <p>\${_data[i].tdDescription}</p>
+                                                <p><span>주소</span>\${_data[i].tdRAddr}</p>
+                                                <p><span>편의시설</span>\${_data[i].tdCnvFclty}</p>
+                                                <p><span>숙박시설</span>\${_data[i].tdStayInfo}</p>
+                                                <p><span>운동시설</span>\${_data[i].tdExFclty}</p>
+                                                <p><span>문화.여가시설</span>\${_data[i].tdRcrFclty}</p>
+                                                <p><span>지원시설</span>\${_data[i].tdsuprtFclty}</p>
+                                                <button class="btn btn-secondary" onclick="return selectDest()">선택</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>`;
+                                    infowindow.setContent(content);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+
+                            markers[i] = marker;
+
+
+                        }
+
+                        //마커 클러스터링
+                        new MarkerClusterer(map, markers, {
+                            imagePath:
+                                "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                        });
+                    },
+                    complete : function() {
+                        console.log("complete");
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        console.log("error");
+                    }
+                });
+            }
+
+            function selectDest() {
+                var selected = $('#destName').text();
+                $('#destList').text(selected);
+            }
         </script>
 
     </head>
@@ -264,10 +280,19 @@
 
     <!-- Reservation Form Section -->
 
-    <section class="page-section" style="margin-top: 100px">
+    <section class="page-section" style="margin-top: 50px">
+        <hr>
         <div class="container">
 
+            <div class="row">
+                <div class="col">
+                    <p><h5>예약</h5></p>
+                    <hr class="custom-hr">
+                </div>
+            </div>
+
             <div class="row justify-content-center">
+
                 <!-- Calendar -->
                 <div class="col-md-4 col-lg-4 col-sm-4">
                     <div class="form-group">
@@ -295,9 +320,12 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">destA</a>
-                                        <a class="dropdown-item" href="#">destB</a>
+                                    <div class="dropdown-menu dropdown-dest">
+                                        <%-- css 변경사항이 적용안될 땐 ctrl + F5로 브라우저 캐쉬 삭제 후 리로드--%>
+                                        <% ArrayList<TravelInfoBean> bean = (ArrayList<TravelInfoBean>)session.getAttribute("data"); %>
+                                        <% for(TravelInfoBean item : bean) { %>
+                                        <a class="dropdown-item" href="#" id="<%=item.getTdName()%>" ><%=item.getTdName()%></a>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -313,9 +341,12 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <button type="button" class="btn btn-primary m-5" id="reserveSubmit">제출</button>
-                        <button type="button" class="btn btn-primary m-5" id="reserveList">예약조회</button>
-                        <button id="ajaxload" class="btn btn-primary">button</button>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-secondary" id="reserveSubmit">제출</button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-secondary" id="reserveList">예약조회</button>
+                        </div>
 
                     </div>
 
@@ -329,6 +360,7 @@
                 </div>
 
             </div>
+
 
 
         </div>

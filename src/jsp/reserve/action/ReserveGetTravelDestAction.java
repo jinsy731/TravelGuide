@@ -7,6 +7,7 @@ import jsp.reserve.model.ReserveDAO;
 import jsp.reserve.model.TravelInfoBean;
 import jsp.util.Action;
 import jsp.util.ActionForward;
+import jsp.util.Crawler;
 import org.json.simple.JSONArray;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +26,10 @@ public class ReserveGetTravelDestAction implements Action {
 
         String json_str = gson.toJson(beanList);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("json", json_str);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        response.getWriter().print(json_str);
 
-        ActionForward forward = new ActionForward();
-        forward.setRedirect(true);
-        forward.setNextPath("getTravelDestControl.rsrv");
-
-        System.out.println("Ajax test11");
-        System.out.println(json_str);
-
-        return forward;
+        return null;
     }
 }

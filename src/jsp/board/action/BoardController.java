@@ -2,6 +2,7 @@ package jsp.board.action;
 
 import jsp.util.Action;
 import jsp.util.ActionForward;
+import jsp.util.Debug;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(urlPatterns = {"*.board"})
 public class BoardController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -29,6 +31,7 @@ public class BoardController extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
+        Debug.debug("command", command);
 
         try {
             // 화면전환

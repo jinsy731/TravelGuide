@@ -1,19 +1,19 @@
 package jsp.reserve.model;
 
 public class TravelInfoBean {
-    String tdName;
-    String tdDist;
-    String tdRAddr;
-    String tdNAddr ;
-    Double tdLatitude;
-    Double tdLongitude;
-    Double tdArea ;
-    String tdCnvFclty ;
-    String tdStayInfo ;
-    String tdExFclty  ;
-    String tdRcrFclty ;
-    String tdsuprtFclty ;
-    String tdDescription;
+    String tdName = null;
+    String tdDist = null;
+    String tdRAddr = null;
+    String tdNAddr  = null;
+    Double tdLatitude = null;
+    Double tdLongitude = null;
+    Double tdArea = null ;
+    String tdCnvFclty  = null;
+    String tdStayInfo  = null;
+    String tdExFclty   = null;
+    String tdRcrFclty  = null;
+    String tdsuprtFclty  = null;
+    String tdDescription = null;
 
     public void setTdArea(Double tdArea) {
         this.tdArea = tdArea;

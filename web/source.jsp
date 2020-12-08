@@ -17,7 +17,15 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 
     <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->
-    <link href="/TravelGuide/css/styles.css" rel="stylesheet" />
+    <link href="/TravelGuide/css/styles.css?v=3" rel="stylesheet" />
     <!-- href 경로를 웹 어플리케이션 경로까지 지정해줘야 include에서 적용됨. https://stackoverrun.com/ko/q/4483380 -->
+
+    <!-- 순서에 유의 -->
+    <script type="text/javascript" src="/TravelGuide/js/rsa/rsa.js"></script>
+    <script type="text/javascript" src="/TravelGuide/js/rsa/jsbn.js"></script>
+    <script type="text/javascript" src="/TravelGuide/js/rsa/prng4.js"></script>
+    <script type="text/javascript" src="/TravelGuide/js/rsa/rng.js"></script>
+
+
 </head>
 </html>

@@ -8,7 +8,7 @@
     <%
         if((int)session.getAttribute("joincheck") == 1) {
             out.print("<script>alert(\"Login Suceess\"); </script>");
-            response.sendRedirect("main.do");
+            response.sendRedirect("index.do");
         }
 
         else if((int)session.getAttribute("joincheck") == -1) {

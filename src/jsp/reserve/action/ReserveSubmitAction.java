@@ -35,13 +35,14 @@ public class ReserveSubmitAction implements Action {
         bean.setReserve_date_start(sdate);
         bean.setReserve_date_end(edate);
         bean.setReserve_state("접수중");
+        bean.setDestination(request.getParameter("destination"));
 
 
-        for(String str : request.getParameterValues("course")) {
-            ArrayList<String> list = bean.getReserve_course();
-            list.add(str);
-            bean.setReserve_course(list);
-        }
+//        for(String str : request.getParameterValues("course")) {
+//            ArrayList<String> list = bean.getReserve_course();
+//            list.add(str);
+//            bean.setReserve_course(list);
+//        }
 
         if( dao.insertReservation(bean) == true) {
             request.getSession().setAttribute("result", "success");

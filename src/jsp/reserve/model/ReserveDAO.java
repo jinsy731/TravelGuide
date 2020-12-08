@@ -25,33 +25,43 @@ public class ReserveDAO {
     PreparedStatement pstmt = null;
 
     // 예약 목록 반환
-    public ArrayList<ReserveBean> getReserveList(String id) {
+    public ArrayList<ReserveBean> getReserveList(String id, int page) {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "select r.RESERVE_NUM, r.USER_ID, r.RESERVE_DATE_START, r.RESERVE_DATE_END, r.RESERVE_STATE, uc.COURSE, c.DESTINATION\n" +
-                "from reserve r, course c, user_course uc\n" +
-                "where r.RESERVE_NUM = uc.RESERVE_NUM and\n" +
-                "      uc.COURSE = c.COURSE and " +
-                "      r.USER_ID = ?; ";
+//        String sql = "select r.RESERVE_NUM, r.USER_ID, r.RESERVE_DATE_START, r.RESERVE_DATE_END, r.RESERVE_STATE, uc.COURSE, c.DESTINATION\n" +
+//                "from reserve r, course c, user_course uc\n" +
+//                "where r.RESERVE_NUM = uc.RESERVE_NUM and\n" +
+//                "      uc.COURSE = c.COURSE and " +
+//                "      r.USER_ID = ?; ";
+        String sql = "select * from reserve where USER_ID = ? limit ?, ?";
         ArrayList<ReserveBean> list = new ArrayList<>();
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
+            pstmt.setInt(2, (page-1)*5);
+            pstmt.setInt(3, page*5);
 
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()) {
                 System.out.println("item");
                 ReserveBean bean = new ReserveBean();
-                bean.setReserve_course_item(result.getString("uc.COURSE"));
-                bean.setReserve_state(result.getString("r.RESERVE_STATE"));
-                bean.setReserve_date_start(result.getString("r.RESERVE_DATE_START"));
-                bean.setReserve_date_end(result.getString("r.RESERVE_DATE_END"));
                 bean.setUser_id(id);
-                bean.setDestination(result.getString("c.DESTINATION")   );
-                bean.setReserve_num(result.getInt("r.RESERVE_NUM"));
+                bean.setDestination(result.getString("RESERVE_DEST"));
+                bean.setReserve_num(result.getInt("RESERVE_NUM"));
+                bean.setReserve_date_start(result.getString("RESERVE_DATE_START"));
+                bean.setReserve_date_end(result.getString("RESERVE_DATE_END"));
+                bean.setReserve_state(result.getString("RESERVE_STATE"));
+
+//                bean.setReserve_course_item(result.getString("uc.COURSE"));
+//                bean.setReserve_state(result.getString("r.RESERVE_STATE"));
+//                bean.setReserve_date_start(result.getString("r.RESERVE_DATE_START"));
+//                bean.setReserve_date_end(result.getString("r.RESERVE_DATE_END"));
+//                bean.setUser_id(id);
+//                bean.setDestination(result.getString("c.DESTINATION")   );
+//                bean.setReserve_num(result.getInt("r.RESERVE_NUM"));
                 list.add(bean);
             }
         } catch (SQLException e) {
@@ -62,6 +72,27 @@ public class ReserveDAO {
             DBConnection.disconnect(conn, pstmt);
         }
         return list;
+    }
+
+    public int getRowCount(String id) {
+        conn = DBConnection.getConnection();
+        int count = 0;
+        String sql = "select count(*) from reserve where USER_ID = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            ResultSet result = pstmt.executeQuery();
+
+            if(result.next()) {
+                count = result.getInt("count(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.disconnect(conn, pstmt);
+            return count;
+        }
     }
 
 
@@ -126,8 +157,8 @@ public class ReserveDAO {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "insert into reserve(USER_ID, RESERVE_DATE_START, RESERVE_DATE_END, RESERVE_STATE) values(?,?,?,?)";
-        String sql2 = "select RESERVE_NUM from reserve where USER_ID = ? and RESERVE_DATE_START = ? and RESERVE_DATE_END = ? and RESERVE_STATE = ?";
+        String sql = "insert into reserve(USER_ID, RESERVE_DATE_START, RESERVE_DATE_END, RESERVE_STATE, RESERVE_DEST) values(?,?,?,?,?)";
+        //String sql2 = "select RESERVE_NUM from reserve where USER_ID = ? and RESERVE_DATE_START = ? and RESERVE_DATE_END = ? and RESERVE_STATE = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
@@ -136,23 +167,24 @@ public class ReserveDAO {
             pstmt.setString(2, bean.getReserve_date_start());
             pstmt.setString(3, bean.getReserve_date_end());
             pstmt.setString(4, bean.getReserve_state());
+            pstmt.setString(5, bean.getDestination());
 
             pstmt.executeUpdate();
 
-            pstmt = conn.prepareStatement(sql2);
-
-            pstmt.setString(1, bean.getUser_id());
-            pstmt.setString(2, bean.getReserve_date_start());
-            pstmt.setString(3, bean.getReserve_date_end());
-            pstmt.setString(4, bean.getReserve_state());
-
-            ResultSet result = pstmt.executeQuery();
-
-            if(result.next()) {
-                int reserve_num = result.getInt("RESERVE_NUM");
-                insertUserCourse(bean, reserve_num);
-                System.out.println("insert course");
-            }
+//            pstmt = conn.prepareStatement(sql2);
+//
+//            pstmt.setString(1, bean.getUser_id());
+//            pstmt.setString(2, bean.getReserve_date_start());
+//            pstmt.setString(3, bean.getReserve_date_end());
+//            pstmt.setString(4, bean.getReserve_state());
+//
+//            ResultSet result = pstmt.executeQuery();
+//
+//            if(result.next()) {
+//                int reserve_num = result.getInt("RESERVE_NUM");
+//                insertUserCourse(bean, reserve_num);
+//                System.out.println("insert course");
+//            }
 
 
         } catch (SQLException e) {
@@ -196,7 +228,7 @@ public class ReserveDAO {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "select tdName, tdLatitude, tdLongitude from travel_info";
+        String sql = "select * from travel_info";
         ArrayList<TravelInfoBean> beanList = new ArrayList<TravelInfoBean>();
 
         try {
@@ -208,6 +240,15 @@ public class ReserveDAO {
                 bean.setTdName(result.getString("tdName"));
                 bean.setTdLatitude(result.getDouble("tdLatitude"));
                 bean.setTdLongitude(result.getDouble("tdLongitude"));
+                bean.setTdNAddr(result.getString("tdNAddr"));
+                bean.setTdRAddr(result.getString("tdRAddr"));
+                bean.setTdDescription(result.getString("tdDescription"));
+                bean.setTdsuprtFclty(result.getString("tdsuprtFclty"));
+                bean.setTdRcrFclty(result.getString("tdRcrFclty"));
+                bean.setTdExFclty(result.getString("tdExFclty"));
+                bean.setTdStayInfo(result.getString("tdStayInfo"));
+                bean.setTdCnvFclty(result.getString("tdCnvFclty"));
+                bean.setTdDist(result.getString("tdDist"));
                 beanList.add(bean);
             }
         } catch (SQLException e) {
