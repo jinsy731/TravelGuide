@@ -5240,6 +5240,8 @@
       <ColNames>USER_ID</ColNames>
       <RefTableName>user_info</RefTableName>
       <RefColNames>USER_ID</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="1254" parent="421" name="tdName">
       <Position>1</Position>

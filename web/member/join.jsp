@@ -35,8 +35,14 @@
 
         <!-- form part -->
         <section id="content" class = "page-section" style="margin-top : 50px">
-
+            <hr>
             <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p><h5>회원가입</h5></p>
+                        <hr class="custom-hr">
+                    </div>
+                </div>
                 <form action="MemberJoinAction.do" method="post" onsubmit="return joinSubmit(event)">
 
                     <input type="hidden" id="JOIN_USER_ID" name="JOIN_USER_ID" value="default">

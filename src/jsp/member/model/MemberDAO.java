@@ -24,7 +24,7 @@ public class MemberDAO {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
-        String sql = "insert into user_info values(?,password(?),?,?,?,?,?,?,?)";
+        String sql = "insert into user_info values(?,SHA2(?, 512),?,?,?,?,?,?,?)";
 
         try {
             String d = member.getUSER_BIRTH_YY() + "-"
@@ -60,7 +60,7 @@ public class MemberDAO {
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
 
         String sql ="select * from user_info where USER_ID = ?";
-        String sql2 = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
+        String sql2 = "select * from user_info where USER_ID = ? and USER_PW = SHA2(?, 512)";
 
         try {
             pstmt = conn.prepareStatement(sql);
@@ -161,8 +161,8 @@ public class MemberDAO {
 
     public String changePassword(String id, String pw, String new_pw) {
         conn = DBConnection.getConnection();
-        String sql = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
-        String sql2 = "update user_info set USER_PW = password(?) where USER_ID = ?";
+        String sql = "select * from user_info where USER_ID = ? and USER_PW = SHA2(?, 512)";
+        String sql2 = "update user_info set USER_PW = SHA2(?, 512) where USER_ID = ?";
         String result = "";
 
         try{
@@ -195,8 +195,8 @@ public class MemberDAO {
     public String deleteMember(String id, String pw) {
         conn = DBConnection.getConnection();
         // sql 문자열 , gb_id 는 자동 등록 되므로 입력하지 않는다.
-        String sql = "select * from user_info where USER_ID = ? and USER_PW = password(?)";
-        String sql2 ="delete from user_info where USER_ID = ? and USER_PW = password(?)";
+        String sql = "select * from user_info where USER_ID = ? and USER_PW = SHA2(?, 512)";
+        String sql2 ="delete from user_info where USER_ID = ? and USER_PW = SHA2(?, 512)";
         String result = "";
 
         try {

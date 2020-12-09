@@ -48,7 +48,7 @@
 
                         <th style="background-color: #eeeeee; text-align: center;">목적지</th>
 
-                        <th style="background-color: #eeeeee; text-align: center;">예약 코스</th>
+                        <th style="background-color: #eeeeee; text-align: center;">상태</th>
 
                     </tr>
                     </thead>
@@ -63,7 +63,7 @@
                                 out.print("<td>"+bean.getReserve_date_start()+"</td>");
                                 out.print("<td>"+bean.getReserve_date_end()+"</td>");
                                 out.print("<td>"+bean.getDestination()+"</td>");
-                                out.print("<td>"+bean.getReserve_course_item()+"</td>");
+                                out.print("<td>"+bean.getReserve_state()+"</td>");
                                 out.print("</tr>");
                             }
                         }
