@@ -7,23 +7,9 @@
         <jsp:include page="../source.jsp"/>
         <script src = "/TravelGuide/js/join.js"></script>
 
-<%--        <!-- Popper js -->--%>
-<%--        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
+        <script>
 
-<%--        <!-- Bootstrap core JS-->--%>
-<%--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
-<%--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>--%>
-<%--        <!-- Third party plugin JS-->--%>
-<%--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>--%>
-
-<%--        <!-- Font Awesome icons (free version)-->--%>
-<%--        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>--%>
-<%--        <!-- Google fonts-->--%>
-<%--        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />--%>
-<%--        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />--%>
-
-<%--        <!-- Core theme CSS (includes Bootstrap) 부트스트랩 포함 css-->--%>
-<%--        <link href="css/styles.css" rel="stylesheet" />--%>
+        </script>
 
     </head>
 
@@ -53,6 +39,7 @@
                             <div class="form-group">
                                 <label for="joinId" >ID</label>
                                 <input type="text" class="form-control" id="joinId" placeholder="ID" name="id">
+                                <button type="button" id="idDupCheckBtn" class="btn-sm btn-secondary mt-3" onclick="return idDupCheck()">ID 중복체크</button>
                             </div>
                             <div class="form-group">
                                 <label for="joinPw" >Password</label>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="lucy-xss-1.6.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/lucy-xss-1.6.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

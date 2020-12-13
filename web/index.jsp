@@ -17,8 +17,9 @@
   <style>
     .main-intro-img {
       width: 100%;
-      height: 100%;
+      height: 300px;
       object-fit: cover;
+      overflow: auto;
     }
 
     .main-img {
@@ -72,13 +73,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="img-fluid main-img" src="assets/img/남이섬1..jpg" data-src="" alt="First slide">
+              <img class="img-fluid main-img" src="assets/img/성산일출봉2.jpg" data-src="" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/남이섬2.jpeg" data-src="" alt="Second slide">
+              <img class="img-fluid main-img" src="assets/img/창경궁2.jpeg" data-src="" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/남이섬3.jpg" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/성산일출봉4.jpg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
               <img class="img-fluid main-img" src="assets/img/수원화성.jpeg" data-src="" alt="Third slide">
@@ -90,19 +91,19 @@
               <img class="img-fluid main-img" src="assets/img/창덕궁2.jpg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/창덕궁3.png" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/창경궁4.jpeg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/북촌3.jpg" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/북촌한옥마을2.jpeg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/북촌2.jpeg" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/북촌한옥마을3.jpeg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/경복궁3.webp" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/창경궁1.jpg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
-              <img class="img-fluid main-img" src="assets/img/북촌4.jpg" data-src="" alt="Third slide">
+              <img class="img-fluid main-img" src="assets/img/북촌한옥마을4.jpg" data-src="" alt="Third slide">
             </div>
             <div class="carousel-item">
               <img class="img-fluid main-img" src="assets/img/경복궁1.webp" data-src="" alt="Third slide">
@@ -155,7 +156,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/성산1.jpeg" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/성산1.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 4-->
@@ -164,7 +165,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/창덕궁2.jpg" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/창덕궁2.jpg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 5-->
@@ -173,7 +174,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/수원화성.jpeg" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/수원화성.jpeg" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 6-->
@@ -182,7 +183,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="assets/img/남이섬3.jpg" alt="" />
+            <img class="img-fluid main-intro-img" src="assets/img/남이섬3.jpg" alt="" />
           </div>
         </div>
       </div>

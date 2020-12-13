@@ -1,7 +1,5 @@
 $(function () {
 
-    $()
-
     // LoginSubmit Event Handler
     $("#loginSubmit").on("click", async function (event) {
         event.preventDefault();
@@ -14,7 +12,7 @@ $(function () {
             return false;
         }
 
-        var rsa = new RSAKey();
+        /*var rsa = new RSAKey();
 
         await $.get({
             url : "MemberInitRsaAction.do",
@@ -31,6 +29,14 @@ $(function () {
 
         $("#USER_ID").val(rsa.encrypt(id.val()));
         $("#USER_PW").val(rsa.encrypt(pw.val()));
+
+        id.val("");
+        pw.val("");*/
+
+        $('#USER_ID').val(id.val());
+        $('#USER_PW').val(SHA256(pw.val()));
+
+        console.log(SHA256(pw.val()));
 
         id.val("");
         pw.val("");
@@ -57,7 +63,7 @@ $(function () {
                     alert("비밀번호가 다릅니다.");
                 }
             },
-            error: function () {
+            error: function (err) {
                 alert("error");
             }
         });

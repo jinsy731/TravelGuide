@@ -20,6 +20,9 @@
     <link href="/TravelGuide/css/styles.css?v=3" rel="stylesheet" />
     <!-- href 경로를 웹 어플리케이션 경로까지 지정해줘야 include에서 적용됨. https://stackoverrun.com/ko/q/4483380 -->
 
+    <!-- sha256 js -->
+    <script src="/TravelGuide/js/sha256.js"></script>
+
     <!-- 순서에 유의 -->
     <script type="text/javascript" src="/TravelGuide/js/rsa/rsa.js"></script>
     <script type="text/javascript" src="/TravelGuide/js/rsa/jsbn.js"></script>

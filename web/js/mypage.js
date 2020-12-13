@@ -27,7 +27,8 @@ $(function() {
             `
             <form action="MemberSecessionAction.do" method="post" onsubmit="secessionCheck(event)">
                 <span>비밀번호 입력</span>
-                <input type="password" id="passwordInput" name="pw" class="form-control-sm" placeholder="비밀번호">
+                <input type="password" id="passwordInput" class="form-control-sm" placeholder="비밀번호">
+                <input type="hidden" id="secessionPW" name="pw" value="default">
                 <button class="btn-sm btn-secondary" id="secessionBtn">탈퇴</button>
             </form>
              `;
@@ -42,11 +43,14 @@ $(function() {
             <form action="MemberChangePasswordAction.do" method="post" id="changePwForm" onsubmit="changePasswordCheck(event)">
                 <div class="form-group">
                     <span style="margin-right : 52px">비밀번호 입력</span>
-                    <input type="password" id="passwordInput" name="pw" class="form-control-sm" placeholder="비밀번호 확인">
+                    <input type="password" id="passwordInput" class="form-control-sm" placeholder="비밀번호 확인">
+                    <input type="hidden" id="originPW" name="pw" value="default">
+
                 </div>
                 <div class="form-group">
                     <span>변경할 비밀번호 입력</span>
-                    <input type="password" id="new_passwordInput" class="form-control-sm" name="new_pw" placeholder="변경할 비밀번호">                
+                    <input type="password" id="new_passwordInput" class="form-control-sm" placeholder="변경할 비밀번호">
+                    <input type="hidden" id="newPW" name="new_pw" value="default">
                 </div>
                 <button type="submit" class="btn-sm btn-secondary" id="changePasswordBtn">변경</button>
             </form>
@@ -64,8 +68,13 @@ async function secessionCheck(event) {
         event.preventDefault();
     } else {
         var result = confirm("탈퇴하시겠습니까?");
-        if(!result)
+        if(!result) {
             event.preventDefault();
+        }
+        else {
+            $('#secessionPW').val(SHA256($('#passwordInput').val()));
+            $('#passwordInput').val("");
+        }
     }
 
 }
@@ -94,8 +103,17 @@ async function changePasswordCheck(event) {
     } else {
         console.log("confirm check function");
         var result = confirm("비밀번호를 변경하시겠습니까?");
-        if(!result)
+        if(!result) {
             event.preventDefault();
+        }
+        else {
+            $('#originPW').val(SHA256($('#passwordInput').val()));
+            $('#newPW').val(SHA256($('#new_passwordInput').val()));
+
+            $('#passwordInput').val("");
+            $('#new_passwordInput').val("");
+            console.log($('#originPW').val());
+        }
     }
 }
 

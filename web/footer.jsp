@@ -6,7 +6,7 @@
             <!-- Footer Location-->
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <h4 class="text-uppercase mb-4">Location</h4>
-                <p class="lead mb-0">
+                <p class="lead mb-0" style="font-size: 12px">
                     서울특별시 노원구 공릉동 공릉로 232
                     <br />
                     서울과학기술대학교

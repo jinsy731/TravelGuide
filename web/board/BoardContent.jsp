@@ -43,6 +43,20 @@
                         }
                     }
                 });
+            });
+
+            $('#listBtn').click(function() {
+                history.back();
+            });
+
+            $('#deleteBtn').click(function() {
+                var url = "BoardDeleteAction.board?board_num=" + ${board_content.board_num};
+                location.href = url;
+            });
+
+            $('#modifyBtn').click(function() {
+                var url = "BoardModifyForm.board?board_num=" + ${board_content.board_num};
+                location.href = url;
             })
         })
     </script>
@@ -66,8 +80,8 @@
                       String user_id = (String)session.getAttribute("sessionID");
 
                       if(owner_id.equals(user_id)) {
-                          out.print(" <a href=\"\" class=\"mx-1\"><i class=\"far fa-trash-alt\" style=\"width:24px; height: 24px; color: #0b2e13\"></i></a> ");
-                          out.print(" <a href=\"\" class=\"mx-1\"><i class=\"far fa-edit\" style=\"width:24px; height: 24px; color: #0b2e13\"></i></a>\n");
+                          out.print(" <a href=\"#\" id=\"deleteBtn\" class=\"mx-1\"><i class=\"far fa-trash-alt\" style=\"width:12px; height: 12px; color: #0b2e13\"></i></a> ");
+                          out.print(" <a href=\"#\" id=\"modifyBtn\" class=\"mx-1\"><i class=\"far fa-edit\" style=\"width:12px; height: 12px; color: #0b2e13\"></i></a>\n");
                       }
                     %>
                 </div>
@@ -82,10 +96,11 @@
             <!-- Content -->
             <p class="ml-3">${board_content.board_content}</p>
             <div><hr></div>
-            <div class="row ml-2" style="font-size: 12pt;">
+            <div class="row ml-2" style="font-size: 10px;">
                 <div class="col">댓글</div>
                 <div class="col">
 
+                    <button id="listBtn" class="btn-sm btn-secondary" style="margin-left : 220px"><span style="font-size: 10px;">목록</span></button>
 
                 </div>
             </div>

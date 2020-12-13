@@ -47,12 +47,15 @@
     <jsp:include page="/navbar.jsp"/>
 
     <!-- 게시판 -->
-    <section class="page-section" style="margin-top: 50px">
-        <hr>
+    <section class="page-section">
+        <header style="background-image : url('/TravelGuide/assets/img/창경궁4.jpeg'); background-size : cover; background-repeat: no-repeat; background-position: bottom">
+            <div style="width: 800px; height: 400px"></div>
+            <div class="font-weight-bold display-4 text-white" style="padding : 100px">여행 후기/여행지 추천</div>
+        </header>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p><h5>게시판</h5></p>
+                    <p><h5></h5></p>
                     <hr class="custom-hr">
                 </div>
             </div>

@@ -174,7 +174,7 @@
 
 
             function initMap() {
-                var seoul = new google.maps.LatLng(37.5642135, 127.0016985);
+                var seoul = new google.maps.LatLng(36.2642135, 128.0016985);
 
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: seoul,
@@ -280,7 +280,7 @@
 
     <!-- Reservation Form Section -->
 
-    <section class="page-section" style="margin-top: 50px">
+    <section class="page-section">
         <hr>
         <div class="container">
 
@@ -315,11 +315,12 @@
                     </div>
 
                     <div class="row" style="margin-bottom : 200px">
-                        <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
                             <label for="destList">목적지</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                    <button id="destList" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${attr_name}</button>
+                                    <% session.removeAttribute("attr_name"); %>
                                     <div class="dropdown-menu dropdown-dest">
                                         <%-- css 변경사항이 적용안될 땐 ctrl + F5로 브라우저 캐쉬 삭제 후 리로드--%>
                                         <% ArrayList<TravelInfoBean> bean = (ArrayList<TravelInfoBean>)session.getAttribute("data"); %>
@@ -331,12 +332,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-lg-6 col-sm-6">
-                            <label for="courseList">코스 목록</label>
-                            <div id="courseList">
-                                <!-- checkbox list added by js -->
-                            </div>
-                        </div>
+<%--                        <div class="col-md-6 col-lg-6 col-sm-6">--%>
+<%--                            <label for="courseList">코스 목록</label>--%>
+<%--                            <div id="courseList">--%>
+<%--                                <!-- checkbox list added by js -->--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
                     </div>
 

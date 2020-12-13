@@ -45,8 +45,7 @@
                     <a href="#" class="nav-link" id="viewInfo">회원정보 조회</a>
                     <a href="#" class="nav-link" id="secession">회원 탈퇴</a>
                     <a href="#" class="nav-link" id="changePassword">비밀번호 변경</a>
-                    <a href="#" class="nav-link" id="viewBid">경매 낙찰 내역 조회</a>
-                    <a href="#" class="nav-link" id="viewMyProduct">나의 상품</a>
+
                 </nav>
                 <hr>
                 <div class="row ml-5 mt-3" >

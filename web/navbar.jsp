@@ -3,7 +3,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-white text-uppercase text-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/TravelGuide/index.do">Web Project</a>
+            <a class="navbar-brand js-scroll-trigger" href="/TravelGuide/index.do">Travel Guide</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -14,7 +14,9 @@
 <%--                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>--%>
 <%--                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>--%>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ReserveFormLoadAction.rsrv">Reserve</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="BoardListAction.board?page=1">Board</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="BoardListAction.board?page=1">Community</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="AttractionList.attr">Attraction</a></li>
+
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Mypage.do">Mypage</a></li>
 
                     <% if(session.getAttribute("sessionID") == null) {
@@ -68,12 +70,12 @@
                             </div>
                             <div>
                                 <!-- Forgot password -->
-                                <a href="">Forgot password?</a>
+                                <a href="./member/ForgotPassword.jsp" target="_blank" onClick="window.open('./member/ForgotPassword.jsp ','비밀번호 찾기','resizable,height=500,width=400,top=200,left=600'); return false;">Forgot password?</a>
                             </div>
                         </div>
 
                         <!-- Sign in button -->
-                        <button class="btn btn-info btn-block my-4" type="submit" id="loginSubmit">Sign in</button>
+                        <button class="btn btn-secondary btn-block my-4" type="submit" id="loginSubmit">Sign in</button>
 
                         <!-- Register -->
                         <p>Not a member?
@@ -81,12 +83,12 @@
                         </p>
 
                         <!-- Social login -->
-                        <p>or sign in with:</p>
+<%--                        <p>or sign in with:</p>--%>
 
-                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
-                        <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
-                        <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
-                        <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+<%--                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>--%>
+<%--                        <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>--%>
+<%--                        <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>--%>
+<%--                        <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>--%>
 
                     </form>
                     <!-- Default form login -->
