@@ -323,10 +323,10 @@
                                     <% session.removeAttribute("attr_name"); %>
                                     <div class="dropdown-menu dropdown-dest">
                                         <%-- css 변경사항이 적용안될 땐 ctrl + F5로 브라우저 캐쉬 삭제 후 리로드--%>
-                                        <% ArrayList<TravelInfoBean> bean = (ArrayList<TravelInfoBean>)session.getAttribute("data"); %>
-                                        <% for(TravelInfoBean item : bean) { %>
-                                        <a class="dropdown-item" href="#" id="<%=item.getTdName()%>" ><%=item.getTdName()%></a>
-                                        <% } %>
+<%--                                        <% ArrayList<TravelInfoBean> bean = (ArrayList<TravelInfoBean>)session.getAttribute("data"); %>--%>
+<%--                                        <% for(TravelInfoBean item : bean) { %>--%>
+<%--                                        <a class="dropdown-item" href="#" id="<%=item.getTdName()%>" ><%=item.getTdName()%></a>--%>
+<%--                                        <% } %>--%>
                                     </div>
                                 </div>
                             </div>

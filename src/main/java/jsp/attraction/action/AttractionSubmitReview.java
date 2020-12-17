@@ -21,6 +21,12 @@ public class AttractionSubmitReview implements Action {
         String content = request.getParameter("reviewContent");
         int attr_no = Integer.parseInt(request.getParameter("attr_no"));
 
+        if(content.length() > 2000 || subject.length() > 200) {
+            response.setContentType("text/html; charset=utf-8");
+            response.getWriter().print("<script> alert('문자열 길이 초과'); history.back(); </script>");
+            return null;
+        }
+
         bean.setReview_content(content);
         bean.setReview_subject(subject);
         bean.setUser_id(user_id);

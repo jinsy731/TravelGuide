@@ -202,15 +202,12 @@
       </div>
       <!-- About Section Content-->
       <div class="row">
-        <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-        <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+        <div class="col-lg-4 ml-auto"><p class="lead">Travel Guide 웹 사이트는 여행 명소 소개, 여행 정보 공유, 여행 가이드 예약을 위한 웹 사이트입니다</p></div>
+        <div class="col-lg-4 mr-auto"><p class="lead">Travel Guide 페이지와 함께 당신만의 여행을 계획해보세요!</p></div>
       </div>
       <!-- About Section Button-->
       <div class="text-center mt-4">
-        <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-          <i class="fas fa-download mr-2"></i>
-          Free Download!
-        </a>
+
       </div>
     </div>
   </section>
@@ -228,40 +225,8 @@
       <!-- Contact Section Form-->
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-          <form id="contactForm" name="sentMessage" novalidate="novalidate">
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name." />
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Email Address</label>
-                <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address." />
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Phone Number</label>
-                <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number." />
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Message</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <br />
-            <div id="success"></div>
-            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Send</button></div>
-          </form>
+          <h3 class="font-weight-bold text-center">Email  jinsy731@naver.com <br> <br> Phone 010 2742 6598</h3>
+
         </div>
       </div>
     </div>

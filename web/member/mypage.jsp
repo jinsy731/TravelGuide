@@ -32,6 +32,11 @@
                 padding-top : 0.75rem;
                 padding-bottom: 0.75rem;
             }
+
+            #mypageContent a {
+                color : #000000
+            }
+
         </style>
 
     </head>
@@ -45,6 +50,7 @@
                     <a href="#" class="nav-link" id="viewInfo">회원정보 조회</a>
                     <a href="#" class="nav-link" id="secession">회원 탈퇴</a>
                     <a href="#" class="nav-link" id="changePassword">비밀번호 변경</a>
+                    <a href="#" class="nav-link" id="reservedList">예약내역 확인</a>
 
                 </nav>
                 <hr>

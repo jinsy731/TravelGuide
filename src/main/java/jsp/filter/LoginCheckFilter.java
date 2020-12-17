@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/AttractionSubmitReview.attr", "/BoardWrite.board", "/BoardWriteCommentAction.board", "/Mypage.do"})
+@WebFilter(urlPatterns = {"/AttractionSubmitReview.attr", "/BoardWrite.board", "/BoardWriteCommentAction.board", "/Mypage.do","/ReserveShowListAction.rsrv","/ReserveSubmitAction.rsrv"})
 public class LoginCheckFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

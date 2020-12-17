@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReserveShowListAction implements Action {
     @Override
@@ -20,7 +21,15 @@ public class ReserveShowListAction implements Action {
         int count = dao.getRowCount(id);
 
         System.out.print(count);
-        ArrayList<ReserveBean> list = dao.getReserveList(id, page);
+        List<ReserveBean> list = dao.getReserveList(id, page);
+        List<String> img = new ArrayList<String>();
+
+        for(ReserveBean bean : list) {
+            System.out.println(bean.getDestination());
+            img.add(dao.getImg(bean.getDestination()));
+        }
+
+        session.setAttribute("reserve_img", img);
         session.setAttribute("reserve_list_count", count);
         session.setAttribute("reserve_list", list);
 

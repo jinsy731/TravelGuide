@@ -53,6 +53,7 @@ AttractionDAO {
                 bean.setAttr_traffic(rs.getString(12));
                 bean.setAttr_longitude(rs.getDouble(13));
                 bean.setAttr_latitude(rs.getDouble(14));
+                bean.setAttr_reserve_price(rs.getInt(15));
             }
 
         }

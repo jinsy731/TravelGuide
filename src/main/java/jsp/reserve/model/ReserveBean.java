@@ -11,7 +11,17 @@ public class ReserveBean {
     String reserve_date_start, reserve_date_end;
     String reserve_state;
     String reserve_course_item;
+    int reserve_price;
     ArrayList<String> reserve_course = new ArrayList<String>();
+
+    public int getReserve_price() {
+        return reserve_price;
+    }
+
+    public void setReserve_price(int reserve_price) {
+        this.reserve_price = reserve_price;
+    }
+
 
     public void setReserve_course(ArrayList<String> reserve_course) {
         this.reserve_course = reserve_course;

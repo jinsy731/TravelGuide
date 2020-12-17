@@ -13,6 +13,8 @@ public class AttractionReserve implements Action {
 
         request.setCharacterEncoding("UTF-8");
         request.getSession().setAttribute("attr_name", request.getParameter("attr_name"));
+        request.getSession().setAttribute("attr_reserve_price", request.getParameter("attr_reserve_price"));
+        System.out.println("reserve_price : " + request.getParameter("attr_reserve_price"));
         forward.setNextPath("ReserveFormLoadAction.rsrv");
         forward.setRedirect(true);
 

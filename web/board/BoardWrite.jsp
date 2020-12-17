@@ -4,6 +4,18 @@
     <head>
         <title>Title</title>
         <jsp:include page="../source.jsp"/>
+
+        <script>
+            function formLengthCheck() {
+                var subject = $('#formGroupInputSubject');
+                var content = $('#formGroupInputContent');
+
+                if(subject.val().length > 200 || content.val().length > 2000) {
+                    alert("문자열 길이 초과");
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="../navbar.jsp"/>
@@ -18,7 +30,7 @@
                     </div>
                 <div class="row justify-content-center">
                     <div class="col">
-                        <form action="BoardWriteAction.board" method="post">
+                        <form action="BoardWriteAction.board" method="post" onsubmit="return formLengthCheck()">
                             <div class="form-group">
                                 <input type="text" id="formGroupInputSubject" name="board_subject" class="form-control" placeholder="제목">
                             </div>

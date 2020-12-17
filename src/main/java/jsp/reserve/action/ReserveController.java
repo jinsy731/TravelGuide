@@ -103,6 +103,21 @@ public class ReserveController extends HttpServlet {
                 action = new ReserveSubmitAction();
                 forward = action.execute(request, response);
             }
+            else if(command.equals("ReserveDelete.rsrv"))
+            {
+                action = new ReserveDelete();
+                forward = action.execute(request, response);
+            }
+            else if(command.equals("ReservePay.rsrv"))
+            {
+                action = new ReservePay();
+                forward = action.execute(request, response);
+            }
+            else if(command.equals("ReserveShowReservedList.rsrv"))
+            {
+                action = new ReserveShowReservedList();
+                forward = action.execute(request, response);
+            }
 
 
             // 화면이동 - isRedirext() 값에 따라 sendRedirect 또는 forward를 사용

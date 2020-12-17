@@ -74,11 +74,21 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCijcJxKaBv72OlNvM6yYO10UP47Ago11Y&callback=initMap&libraries=places&region=kr" defer
     ></script>
     <script>
+        $(function() {
+           console.log(${attr_bean.attr_reserve_price}) ;
+
+        });
+
         function reviewSubmit() {
             var $subject = $('#reviewSubject');
             var $content = $('#reviewContent');
 
             if ($subject.val() === '' || $content.val() === '') {
+                alert('리뷰룰 입력해주세요');
+                return false;
+            }
+            else if($subject.val().length > 200 || $content.val().length > 2000) {
+                alert("문자열 길이 초과");
                 return false;
             }
         }
@@ -266,6 +276,7 @@
                     <form action="AttractionReserve.attr" method="post">
                         <button class="btn btn-secondary align-self-center">예약하기</button>
                         <input type="hidden" value="${attr_bean.attr_name}" name="attr_name">
+                        <input type="hidden" value="${attr_bean.attr_reserve_price}" name="attr_reserve_price">
                     </form>
 
 

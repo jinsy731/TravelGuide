@@ -16,6 +16,12 @@ public class BoardModifyAction implements Action {
         String subject = request.getParameter("modify_board_subject");
         String content = request.getParameter("modify_board_content");
 
+        if(content.length() > 2000 || subject.length() > 200) {
+            response.setContentType("text/html; charset=utf-8");
+            response.getWriter().print("<script> alert('문자열 길이 초과'); history.back(); </script>");
+            return null;
+        }
+
         MemberDAO memberDAO = MemberDAO.getInstance();
         BoardDAO boardDAO = BoardDAO.getInstance();
         if (!memberDAO.verifyUser(id, board_no)) {

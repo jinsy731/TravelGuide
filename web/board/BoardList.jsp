@@ -38,6 +38,23 @@
             font-size : 10px;
 
         }
+
+        .boardlist-subject {
+            font-size : 30px;
+            color : #2f4559;
+        }
+
+        .boardlist-content {
+            font-size : 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 라인수 */
+            -webkit-box-orient: vertical;
+            word-wrap:break-word;
+            line-height: 1.2em;
+            height: 2.6em; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+        }
     </style>
 
 </head>
@@ -48,51 +65,32 @@
 
     <!-- 게시판 -->
     <section class="page-section">
-        <header style="background-image : url('/TravelGuide/assets/img/창경궁4.jpeg'); background-size : cover; background-repeat: no-repeat; background-position: bottom">
+        <header style="background-image : url('${pageContext.request.contextPath}/assets/img/창경궁4.jpeg'); background-size : cover; background-repeat: no-repeat; background-position: bottom">
             <div style="width: 800px; height: 400px"></div>
             <div class="font-weight-bold display-4 text-white" style="padding : 100px">여행 후기/여행지 추천</div>
         </header>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p><h5></h5></p>
-                    <hr class="custom-hr">
-                </div>
-            </div>
-            <div class = "row justify-content-center">
-                <table class="table table-hover">
-                <thead>
-                    <tr class="board-table">
-                        <th style="width: 50px">번호</th>
+        <div class="container mt-5">
 
-                        <th style="width: 300px">제목</th>
+             <div class="list-group">
+            <%
+                ArrayList<BoardBean> list = (ArrayList<BoardBean>)session.getAttribute("boardlist");
+                for(BoardBean bean : list) {
 
-                        <th style="width: 100px">작성자</th>
+                    out.print("<a href=\"BoardShowContentAction.board?board_num="+ bean.getBoard_num() +"\" class=\"list-group-item-custom list-group-item-action flex-column align-items-start\" style=\"padding-left : 100px; padding-right : 100px;\"> ");
+                    out.print("     <div class=\"d-flex w-80 justify-content-between\">");
+                    out.print("         <p class=\"boardlist-subject mb-3\">"+bean.getBoard_subject() +"</p>\n");
+                    out.print("         <small>"+ bean.getBoard_date()+"</small>\n");
+                    out.print("     </div>");
+                    out.print(" <p class=\"mb-1 boardlist-content\">"+ bean.getBoard_content()+"</p>");
+                    out.print("<small>"+ bean.getBoard_owner_id()+"</small>\n");
+                    out.print("</a>");
 
-                        <th style="width: 100px">작성일</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%
-                        ArrayList<BoardBean> list = (ArrayList<BoardBean>)session.getAttribute("boardlist");
-                        for(BoardBean bean : list) {
-                            out.print("<tr class=\"board-table board-table-item table_item\">");
-                            out.print("<td data-field=\"num\" data-formatter=\"LinkFormatter\">"+bean.getBoard_num()+"</td>");
-                            out.print("<td>"+bean.getBoard_subject()+"</td>");
-                            out.print("<td>"+bean.getBoard_owner_id()+"</td>");
-                            out.print("<td>"+bean.getBoard_date()+"</td>");
-                            out.print("</tr>");
-                        }
+                }
 
-                    %>
+            %>
+             </div>
 
-                    </tbody>
-
-                </table>
-            </div>
-
-
-            <div class="row justify-content-between">
+            <div class="row justify-content-between mt-5">
                 <div></div>
                     <nav aria-label="Page navigation example" >
                         <ul class="pagination">
@@ -116,7 +114,7 @@
                             </li>
                         </ul>
                     </nav>
-                    <button class="btn btn-primary pull-right right float-right" id="btn_write">글쓰기</button>
+                    <button class="btn btn-secondary pull-right right float-right" id="btn_write">글쓰기</button>
             </div>
         </div>
     </section>

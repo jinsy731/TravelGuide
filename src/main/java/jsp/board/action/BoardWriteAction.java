@@ -20,11 +20,20 @@ public class BoardWriteAction implements Action {
         BoardDAO dao = BoardDAO.getInstance();
         BoardBean bean = new BoardBean();
 
+        String board_content = request.getParameter("board_content");
+        String board_subject = request.getParameter("board_subject");
+
+        if(board_content.length() > 2000 || board_subject.length() > 200) {
+            response.setContentType("text/html; charset=utf-8");
+            response.getWriter().print("<script> alert('문자열 길이 초과'); history.back(); </script>");
+            return null;
+        }
+
         Date date = new Date(new java.util.Date().getTime());
         bean.setBoard_date(date);
-        bean.setBoard_content((request.getParameter("board_content")));
+        bean.setBoard_content(board_content);
         bean.setBoard_owner_id((String)request.getSession().getAttribute("sessionID"));
-        bean.setBoard_subject((request.getParameter("board_subject")));
+        bean.setBoard_subject(board_subject);
 
         HttpSession session = request.getSession();
         dao.insertBoard(bean);

@@ -8,6 +8,7 @@ import jsp.util.ChangeDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class ReserveSubmitAction implements Action {
         ReserveBean bean = new ReserveBean();
 
         ActionForward forward = new ActionForward();
+        HttpSession session = request.getSession();
 
         request.setCharacterEncoding("UTF-8");
 
@@ -31,18 +33,13 @@ public class ReserveSubmitAction implements Action {
         System.out.println(sdate + "//" + edate);
         System.out.println(format.parse(sdate).getTime());
 
-        bean.setUser_id((String)request.getSession().getAttribute("sessionID"));
+        bean.setUser_id((String)session.getAttribute("sessionID"));
         bean.setReserve_date_start(sdate);
         bean.setReserve_date_end(edate);
         bean.setReserve_state("접수중");
+        bean.setReserve_price(Integer.parseInt(session.getAttribute("attr_reserve_price").toString()));
         bean.setDestination(request.getParameter("destination"));
 
-
-//        for(String str : request.getParameterValues("course")) {
-//            ArrayList<String> list = bean.getReserve_course();
-//            list.add(str);
-//            bean.setReserve_course(list);
-//        }
 
         if( dao.insertReservation(bean) == true) {
             request.getSession().setAttribute("result", "success");
@@ -52,6 +49,9 @@ public class ReserveSubmitAction implements Action {
 
         forward.setRedirect(false);
         forward.setNextPath("ReserveSubmitControl.rsrv");
+
+        session.removeAttribute("attr_reserve_price");
+        session.removeAttribute("attr_name");
 
         return forward;
     }

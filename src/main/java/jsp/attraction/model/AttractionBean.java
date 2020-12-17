@@ -13,8 +13,18 @@ public class AttractionBean {
     String attr_openday;
     String attr_price;
     String attr_traffic;
+    int attr_reserve_price;
     double attr_longitude;
     double attr_latitude;
+
+
+    public void setAttr_reserve_price(int attr_reserve_price) {
+        this.attr_reserve_price = attr_reserve_price;
+    }
+
+    public int getAttr_reserve_price() {
+        return attr_reserve_price;
+    }
 
     public double getAttr_latitude() {
         return attr_latitude;

@@ -15,17 +15,13 @@
             <!-- Footer Social Icons-->
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <h4 class="text-uppercase mb-4">TravelGuide</h4>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+
             </div>
             <!-- Footer About Text-->
             <div class="col-lg-4">
                 <h4 class="text-uppercase mb-4">About Us</h4>
-                <p class="lead mb-0">
-                    Freelance is a free to use, MIT licensed Bootstrap theme created by
-                    <a href="http://startbootstrap.com">Start Bootstrap</a>
+                <p class=" mb-0">
+                    여행 가이드 예약, 여행 정보 공유, 여행 명소 소개를 위한 웹 사이트 입니다
                     .
                 </p>
             </div>
